@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { ReactNode } from "react";
+import Image from "next/image";
 
 // Export OpenGraph image metadata
 export const alt = "Next.js RTL Boilerplate";
@@ -115,8 +116,6 @@ interface OpenGraphImageOptions {
   background?: string | React.ReactNode;
   /** Optional alt text for the OpenGraph image (default: "Next.js RTL Boilerplate") */
   alt?: string;
-  /** Optional content type for the image (default: "image/png") */
-  contentType?: string;
 }
 
 /**
@@ -153,7 +152,6 @@ export async function createOpenGraphImage({
   height = 630,
   background,
   alt = "Next.js RTL Boilerplate",
-  contentType = "image/png",
 }: OpenGraphImageOptions): Promise<ImageResponse> {
   // Load IRANYekan font files with different weights
   const [fontData, fontDataBold, fontDataBlack] = await Promise.all([
@@ -186,17 +184,13 @@ export async function createOpenGraphImage({
         {/* Background */}
         {background ? (
           typeof background === "string" ? (
-            <img
+            <Image
               src={background}
-              alt=""
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                zIndex: 0,
-              }}
+              alt={alt}
+              width={1200}
+              height={630}
+              priority
+              className="w-full h-auto"
             />
           ) : (
             <div

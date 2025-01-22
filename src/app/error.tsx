@@ -18,6 +18,11 @@ export default function Error({
         <p className="text-muted-foreground">
           متاسفانه در پردازش درخواست شما مشکلی پیش آمده است.
         </p>
+        {process.env.NODE_ENV === "development" && (
+          <p className="max-w-[600px] break-words text-sm text-muted-foreground">
+            {error.message}
+          </p>
+        )}
       </div>
       <Button onClick={() => reset()}>تلاش مجدد</Button>
     </div>
