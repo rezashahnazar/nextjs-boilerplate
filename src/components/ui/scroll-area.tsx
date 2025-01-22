@@ -15,14 +15,27 @@ const ScrollArea = React.forwardRef<
     <ScrollAreaPrimitive.Viewport className="h-full w-full rounded-[inherit]">
       {children}
     </ScrollAreaPrimitive.Viewport>
-    <ScrollBar />
+    <ScrollAreaPrimitive.Scrollbar
+      orientation="vertical"
+      className={cn(
+        "flex touch-none select-none",
+        "[--scrollbar-opacity:0]",
+        "data-[visible=true]:[--scrollbar-opacity:1]",
+        "opacity-[var(--scrollbar-opacity)]",
+        "transition-[opacity] duration-300 ease-in-out"
+      )}
+    >
+      <ScrollAreaPrimitive.Thumb
+        className={cn("relative flex-1 rounded-full bg-muted-foreground/20")}
+      />
+    </ScrollAreaPrimitive.Scrollbar>
     <ScrollAreaPrimitive.Corner />
   </ScrollAreaPrimitive.Root>
 ));
 ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName;
 
 const ScrollBar = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
+  HTMLDivElement,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>
 >(({ className, orientation = "vertical", ...props }, ref) => (
   <ScrollAreaPrimitive.ScrollAreaScrollbar

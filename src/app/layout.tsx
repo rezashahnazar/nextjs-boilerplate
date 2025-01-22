@@ -3,6 +3,7 @@ import "./globals.css";
 import { CustomThemeProvider } from "@/components/theme-provider";
 import { IRANYekan } from "@/fonts/local-fonts";
 import { cn } from "@/lib/utils";
+import { Header } from "@/components/header";
 
 export const metadata: Metadata = {
   title: "Next.js RTL Boilerplate",
@@ -38,7 +39,6 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
-          // forcedTheme="dark"
         >
           {/* Skip to main content link for keyboard users */}
           <a
@@ -47,7 +47,8 @@ export default function RootLayout({
           >
             رفتن به محتوای اصلی
           </a>
-          <main id="main-content" className="container mx-auto h-dvh">
+          <Header className="h-[64px]" />
+          <main id="main-content" className="container w-full mx-auto">
             {children}
           </main>
         </CustomThemeProvider>

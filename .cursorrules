@@ -5,3 +5,70 @@ For the deisgn of UI, imagine you are Jony Ive and you want to design a clean pr
 We try to develop with handling all accessibility best practices in mind.
 Shadcn components should be added by pnpx shadcn@latest add <component-name>
 For full height sizing, use min-h-dvh class.
+All designs should be aesthetically theme-able. We prefer using foreground for text- , bg- , fill- , stroke- , ... and mixed with foreground and background root colors and compositing them with tailwindcss. No need to provide separate dark: classes.
+
+We try to write codes of the components clean and readable like below:
+```tsx
+    import { cn } from "@/lib/utils";
+    import ReactMarkdown from "react-markdown";
+    import remarkGfm from "remark-gfm";
+    import { UserAvatar, AssistantAvatar } from "./avatars";
+    import { MessageItemProps } from "./types/message";
+    import { createMarkdownComponents } from "./markdown-components";
+    import { CodeBlock } from "./code-block";
+
+    const TIME_FORMAT_OPTIONS = {
+    hour: "2-digit",
+    minute: "2-digit",
+    } as const;
+
+    const AVATAR_CONTAINER_CLASSES =
+    "flex h-8 w-8 shrink-0 select-none items-center justify-center";
+
+    export function MessageItem({ role, content, createdAt }: MessageItemProps) {
+    const isUser = role === "user";
+    const Avatar = isUser ? UserAvatar : AssistantAvatar;
+    const markdownComponents = createMarkdownComponents({ isUser });
+
+    const classes = {
+        container: cn("flex gap-3 py-4", isUser && "flex-row-reverse"),
+        content: cn("flex flex-1", isUser ? "justify-end" : "justify-start"),
+        message: cn("max-w-[85%]", !isUser && "bg-muted rounded-2xl px-4 py-3"),
+        time: cn(
+        "block text-[10px] text-muted-foreground/50 mt-2",
+        isUser ? "text-right" : "text-left"
+        ),
+    };
+
+    const formatTime = (date: Date) =>
+        date.toLocaleTimeString("fa-IR", TIME_FORMAT_OPTIONS);
+
+    return (
+        <div className={classes.container}>
+        <div className={AVATAR_CONTAINER_CLASSES}>
+            <Avatar />
+        </div>
+        <div className={classes.content}>
+            <div className={classes.message}>
+            <div className="text-right">
+                <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                    ...markdownComponents,
+                    code: (props) => <CodeBlock {...props} isUser={isUser} />,
+                }}
+                >
+                {content}
+                </ReactMarkdown>
+                {createdAt && (
+                <time dateTime={createdAt.toISOString()} className={classes.time}>
+                    {formatTime(createdAt)}
+                </time>
+                )}
+            </div>
+            </div>
+        </div>
+        </div>
+    );
+    }
+```
