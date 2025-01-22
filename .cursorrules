@@ -1,0 +1,5 @@
+This is a boilerplate project for Next.js 15 with rtl Persian layout.
+We work with typescript + tailwindcss. The tailwind config is tailwind.config.ts file. We prefer to only use tailwindcss classes in codes and avoid adding custom classes to globals css or using modular css files.
+We prefer not to use framer-motion as it makes the UI heavy.
+For the deisgn of UI, imagine you are Jony Ive and you want to design a clean professional sophisticated website. UI should look amazing, work smoothly and be responsive in mobile and desktop.
+We try to develop with handling all accessibility best practices in mind.
