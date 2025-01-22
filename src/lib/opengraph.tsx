@@ -68,7 +68,7 @@ export function renderPersianTextForOpenGraphImage(
         fontWeight: 500,
         fontFamily: "IRANYekan",
         textAlign: "center",
-        letterSpacing: "0.1em",
+        letterSpacing: "0",
         ...style,
       }}
     >
@@ -82,6 +82,7 @@ export function renderPersianTextForOpenGraphImage(
               display: "flex",
               direction: "ltr",
               margin: "0 0.15em",
+              letterSpacing: "0.05em",
             }}
           >
             {part}
@@ -157,13 +158,13 @@ export async function createOpenGraphImage({
   // Load IRANYekan font files with different weights
   const [fontData, fontDataBold, fontDataBlack] = await Promise.all([
     fetch(
-      "https://raw.githubusercontent.com/rezashahnazar/nextjs-boilerplate/main/src/fonts/IranYekan/iranyekan_medium.woff"
+      new URL("../fonts/IranYekan/iranyekan_medium.woff", import.meta.url)
     ).then((res) => res.arrayBuffer()),
     fetch(
-      "https://raw.githubusercontent.com/rezashahnazar/nextjs-boilerplate/main/src/fonts/IranYekan/iranyekan_extrabold.woff"
+      new URL("../fonts/IranYekan/iranyekan_extrabold.woff", import.meta.url)
     ).then((res) => res.arrayBuffer()),
     fetch(
-      "https://raw.githubusercontent.com/rezashahnazar/nextjs-boilerplate/main/src/fonts/IranYekan/iranyekan_black.woff"
+      new URL("../fonts/IranYekan/iranyekan_black.woff", import.meta.url)
     ).then((res) => res.arrayBuffer()),
   ]);
 
