@@ -3,3 +3,4 @@ We work with typescript + tailwindcss. The tailwind config is tailwind.config.ts
 We prefer not to use framer-motion as it makes the UI heavy.
 For the deisgn of UI, imagine you are Jony Ive and you want to design a clean professional sophisticated website. UI should look amazing, work smoothly and be responsive in mobile and desktop.
 We try to develop with handling all accessibility best practices in mind.
+Shadcn components should be added by pnpx shadcn@latest add <component-name>

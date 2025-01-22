@@ -3,7 +3,6 @@ import "./globals.css";
 import { CustomThemeProvider } from "@/components/theme-provider";
 import { IRANYekan } from "@/fonts/local-fonts";
 import { cn } from "@/lib/utils";
-import { Header } from "@/components/header";
 
 export const metadata: Metadata = {
   title: "Next.js RTL Boilerplate",
@@ -31,7 +30,7 @@ export default function RootLayout({
       <body
         className={cn(
           IRANYekan.className,
-          "min-h-screen antialiased bg-background text-foreground"
+          "antialiased bg-background text-foreground"
         )}
       >
         <CustomThemeProvider
@@ -47,15 +46,9 @@ export default function RootLayout({
           >
             رفتن به محتوای اصلی
           </a>
-          <Header />
-          <main id="main-content" className="container mx-auto px-4 py-8">
+          <main id="main-content" className="container mx-auto h-dvh">
             {children}
           </main>
-          <footer className="border-t bg-background/95 py-6 text-center text-sm text-muted-foreground">
-            <div className="container">
-              © {new Date().getFullYear()} - ساخته شده با ❤️
-            </div>
-          </footer>
         </CustomThemeProvider>
       </body>
     </html>
