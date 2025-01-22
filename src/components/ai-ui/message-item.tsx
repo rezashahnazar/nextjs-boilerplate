@@ -307,6 +307,7 @@ export function MessageItem({
           )}
         >
           <div
+            dir="rtl"
             className={cn(
               "prose prose-sm dark:prose-invert max-w-none break-words",
               isUser && "prose-invert"
@@ -315,6 +316,52 @@ export function MessageItem({
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
+                p: ({ children }) => (
+                  <p dir="rtl" className="text-right !mt-0">
+                    {children}
+                  </p>
+                ),
+                h1: ({ children }) => (
+                  <h1 dir="rtl" className="text-right">
+                    {children}
+                  </h1>
+                ),
+                h2: ({ children }) => (
+                  <h2 dir="rtl" className="text-right">
+                    {children}
+                  </h2>
+                ),
+                h3: ({ children }) => (
+                  <h3 dir="rtl" className="text-right">
+                    {children}
+                  </h3>
+                ),
+                ul: ({ children }) => (
+                  <ul dir="rtl" className="text-right list-disc mr-5 space-y-2">
+                    {children}
+                  </ul>
+                ),
+                ol: ({ children }) => (
+                  <ol
+                    dir="rtl"
+                    className="text-right list-decimal mr-5 space-y-2"
+                  >
+                    {children}
+                  </ol>
+                ),
+                li: ({ children }) => (
+                  <li dir="rtl" className="text-right">
+                    {children}
+                  </li>
+                ),
+                blockquote: ({ children }) => (
+                  <blockquote
+                    dir="rtl"
+                    className="text-right border-r-2 border-border pr-4"
+                  >
+                    {children}
+                  </blockquote>
+                ),
                 code({ inline, className, children, ...props }: CodeProps) {
                   const match = /language-(\w+)/.exec(className || "");
                   const language = match ? match[1] : "";
@@ -342,6 +389,8 @@ export function MessageItem({
                               padding: "0.75rem",
                               fontSize: "0.875rem",
                               lineHeight: "1.25rem",
+                              direction: "ltr",
+                              textAlign: "left",
                             }}
                             showLineNumbers={false}
                             PreTag="div"
@@ -354,8 +403,9 @@ export function MessageItem({
                   }
                   return (
                     <code
+                      dir="ltr"
                       className={cn(
-                        "relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm",
+                        "relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm inline-block",
                         isUser ? "bg-primary-foreground/10" : "bg-primary/5"
                       )}
                       {...props}
