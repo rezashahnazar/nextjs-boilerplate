@@ -89,36 +89,34 @@ export function ChatUI() {
   }, [messages, isLoading, scrollToBottom]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-full py-4">
-      <Card className="w-full max-w-4xl flex flex-col h-full relative">
-        <ScrollArea ref={scrollAreaRef} className="flex-1 h-[calc(100vh-8rem)]">
-          <MessageList
-            messages={messages}
-            isLoading={isLoading}
-            error={error}
-            onRetry={reload}
-          />
+    <div className="flex flex-col items-center justify-center h-dvh bg-white">
+      <Card className="w-full max-w-2xl flex flex-col h-full relative border-0 bg-white shadow-none">
+        <ScrollArea
+          ref={scrollAreaRef}
+          className="flex-1 px-4 md:px-6"
+          scrollHideDelay={75}
+        >
+          <div className="py-4 md:py-6">
+            <MessageList
+              messages={messages}
+              isLoading={isLoading}
+              error={error}
+              onRetry={reload}
+            />
+          </div>
         </ScrollArea>
 
-        {showScrollButton && (
-          <Button
-            size="icon"
-            variant="secondary"
-            className="absolute bottom-24 right-6 z-50 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 opacity-90 hover:opacity-100 hover:translate-y-[-2px]"
-            onClick={() => scrollToBottom("smooth")}
-            aria-label="پیمایش به پایین"
-          >
-            <ChevronDown className="h-5 w-5" />
-          </Button>
-        )}
-
-        <ChatInput
-          input={input}
-          isLoading={isLoading}
-          onSubmit={handleSubmit}
-          onInputChange={handleInputChange}
-          onStop={stop}
-        />
+        <div className="bg-white px-4 pb-3 pt-0 md:px-6">
+          <ChatInput
+            input={input}
+            isLoading={isLoading}
+            onSubmit={handleSubmit}
+            onInputChange={handleInputChange}
+            onStop={stop}
+            showScrollButton={showScrollButton}
+            onScrollToBottom={() => scrollToBottom("smooth")}
+          />
+        </div>
       </Card>
     </div>
   );

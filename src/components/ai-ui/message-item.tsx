@@ -249,178 +249,155 @@ export function MessageItem({
     <div
       ref={messageRef}
       className={cn(
-        "group relative flex items-start gap-3 px-4 py-3",
-        isUser ? "flex-row-reverse" : "flex-row"
+        "group relative mb-7 flex items-start gap-3",
+        isUser ? "justify-end" : "justify-start"
       )}
-      role="listitem"
-      aria-label={`پیام از ${isUser ? "شما" : "دستیار"}`}
     >
-      <Avatar
-        className={cn(
-          "h-8 w-8 shrink-0",
-          isUser ? "bg-primary/10" : "bg-muted"
-        )}
-      >
-        <div
-          className={cn(
-            "h-full w-full",
-            isUser ? "text-primary" : "text-foreground"
-          )}
-        >
-          {isUser ? <UserAvatar /> : <AssistantAvatar />}
+      {!isUser && (
+        <div className="flex h-[24px] w-[24px] shrink-0 select-none items-center justify-center rounded bg-[#ECECF1]">
+          <AssistantAvatar />
         </div>
-      </Avatar>
-
-      <div
-        className={cn(
-          "flex min-w-0 max-w-[80%] flex-col gap-1",
-          "animate-in slide-in-from-bottom-2 fade-in-50 duration-200",
-          isUser ? "items-end" : "items-start"
-        )}
-      >
+      )}
+      <div className="flex flex-col items-start">
         <div
           className={cn(
-            "flex w-full items-center gap-2 text-sm",
-            isUser ? "flex-row-reverse" : "flex-row"
+            "rounded-2xl px-4 py-[10px] max-w-[85%] text-[13px] ",
+            isUser ? "bg-[#F7F7F8] text-[#303030]" : "bg-white text-[#303030]"
           )}
         >
-          <span className="font-medium text-foreground">
-            {isUser ? "شما" : "دستیار"}
-          </span>
-          <time
-            dateTime={createdAt.toISOString()}
-            className="text-xs text-muted-foreground"
-          >
-            {formattedTime}
-          </time>
-        </div>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              p: ({ children }) => (
+                <p
+                  dir="rtl"
+                  className="whitespace-pre-wrap leading-[1.7] text-[13px]"
+                >
+                  {children}
+                </p>
+              ),
+              h1: ({ children }) => (
+                <h1
+                  dir="rtl"
+                  className="text-right text-[14px] font-bold mt-6 mb-4 first:mt-0"
+                >
+                  {children}
+                </h1>
+              ),
+              h2: ({ children }) => (
+                <h2
+                  dir="rtl"
+                  className="text-right text-[13.5px] font-semibold mt-5 mb-3"
+                >
+                  {children}
+                </h2>
+              ),
+              h3: ({ children }) => (
+                <h3
+                  dir="rtl"
+                  className="text-right text-[13px] font-medium mt-4 mb-2"
+                >
+                  {children}
+                </h3>
+              ),
+              ul: ({ children }) => (
+                <ul
+                  dir="rtl"
+                  className="text-right list-disc mr-5 space-y-1.5 my-4 text-[13px]"
+                >
+                  {children}
+                </ul>
+              ),
+              ol: ({ children }) => (
+                <ol
+                  dir="rtl"
+                  className="text-right list-decimal mr-5 space-y-1.5 my-4 text-[13px]"
+                >
+                  {children}
+                </ol>
+              ),
+              li: ({ children }) => (
+                <li
+                  dir="rtl"
+                  className="text-right leading-relaxed text-[13px]"
+                >
+                  {children}
+                </li>
+              ),
+              blockquote: ({ children }) => (
+                <blockquote
+                  dir="rtl"
+                  className="text-right border-r-2 border-border pr-4 py-1 my-4 text-[13px] text-muted-foreground"
+                >
+                  {children}
+                </blockquote>
+              ),
+              code({ inline, className, children, ...props }: CodeProps) {
+                const match = /language-(\w+)/.exec(className || "");
+                const language = match ? match[1] : "";
 
-        <div
-          className={cn(
-            "relative rounded-lg px-4 py-3 text-sm",
-            isUser
-              ? "bg-primary text-primary-foreground"
-              : "bg-muted text-foreground",
-            "shadow-sm transition-all duration-200 ease-in-out hover:shadow-md",
-            "ring-1 ring-inset",
-            isUser ? "ring-primary/10" : "ring-border"
-          )}
-        >
-          <div
-            dir="rtl"
-            className={cn(
-              "prose prose-sm dark:prose-invert max-w-none break-words",
-              isUser && "prose-invert"
-            )}
-          >
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{
-                p: ({ children }) => (
-                  <p dir="rtl" className="text-right !mt-0">
-                    {children}
-                  </p>
-                ),
-                h1: ({ children }) => (
-                  <h1 dir="rtl" className="text-right">
-                    {children}
-                  </h1>
-                ),
-                h2: ({ children }) => (
-                  <h2 dir="rtl" className="text-right">
-                    {children}
-                  </h2>
-                ),
-                h3: ({ children }) => (
-                  <h3 dir="rtl" className="text-right">
-                    {children}
-                  </h3>
-                ),
-                ul: ({ children }) => (
-                  <ul dir="rtl" className="text-right list-disc mr-5 space-y-2">
-                    {children}
-                  </ul>
-                ),
-                ol: ({ children }) => (
-                  <ol
-                    dir="rtl"
-                    className="text-right list-decimal mr-5 space-y-2"
-                  >
-                    {children}
-                  </ol>
-                ),
-                li: ({ children }) => (
-                  <li dir="rtl" className="text-right">
-                    {children}
-                  </li>
-                ),
-                blockquote: ({ children }) => (
-                  <blockquote
-                    dir="rtl"
-                    className="text-right border-r-2 border-border pr-4"
-                  >
-                    {children}
-                  </blockquote>
-                ),
-                code({ inline, className, children, ...props }: CodeProps) {
-                  const match = /language-(\w+)/.exec(className || "");
-                  const language = match ? match[1] : "";
-
-                  if (!inline && language) {
-                    return (
-                      <div className="not-prose rounded-md overflow-hidden my-4 first:mt-0 last:mb-0">
-                        <div className="flex items-center justify-between px-4 py-2 bg-zinc-900 border-b border-zinc-700/50">
-                          <span className="text-xs font-medium text-zinc-400">
-                            {language}
-                          </span>
-                          <div className="flex gap-1.5">
-                            <div className="w-3 h-3 rounded-full bg-red-500/70" />
-                            <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
-                            <div className="w-3 h-3 rounded-full bg-green-500/70" />
-                          </div>
-                        </div>
-                        <div className="relative bg-zinc-900">
-                          <SyntaxHighlighter
-                            language={language}
-                            style={customTheme}
-                            customStyle={{
-                              margin: 0,
-                              background: "transparent",
-                              padding: "0.75rem",
-                              fontSize: "0.875rem",
-                              lineHeight: "1.25rem",
-                              direction: "ltr",
-                              textAlign: "left",
-                            }}
-                            showLineNumbers={false}
-                            PreTag="div"
-                          >
-                            {String(children).replace(/\n$/, "")}
-                          </SyntaxHighlighter>
+                if (!inline && language) {
+                  return (
+                    <div className="not-prose rounded-md overflow-hidden my-4 first:mt-0 last:mb-0">
+                      <div className="flex items-center justify-between px-4 py-2 bg-zinc-900 border-b border-zinc-700/50">
+                        <span className="text-xs font-medium text-zinc-400">
+                          {language}
+                        </span>
+                        <div className="flex gap-1.5">
+                          <div className="w-3 h-3 rounded-full bg-red-500/70" />
+                          <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
+                          <div className="w-3 h-3 rounded-full bg-green-500/70" />
                         </div>
                       </div>
-                    );
-                  }
-                  return (
-                    <code
-                      dir="ltr"
-                      className={cn(
-                        "relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm inline-block",
-                        isUser ? "bg-primary-foreground/10" : "bg-primary/5"
-                      )}
-                      {...props}
-                    >
-                      {children}
-                    </code>
+                      <div className="relative bg-zinc-900">
+                        <SyntaxHighlighter
+                          language={language}
+                          style={customTheme}
+                          customStyle={{
+                            margin: 0,
+                            background: "transparent",
+                            padding: "0.75rem",
+                            fontSize: "0.875rem",
+                            lineHeight: "1.25rem",
+                            direction: "ltr",
+                            textAlign: "left",
+                          }}
+                          showLineNumbers={false}
+                          PreTag="div"
+                        >
+                          {String(children).replace(/\n$/, "")}
+                        </SyntaxHighlighter>
+                      </div>
+                    </div>
                   );
-                },
-              }}
-            >
-              {content}
-            </ReactMarkdown>
-          </div>
+                }
+                return (
+                  <code
+                    dir="ltr"
+                    className={cn(
+                      "relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm inline-block",
+                      isUser ? "bg-primary-foreground/10" : "bg-primary/5"
+                    )}
+                    {...props}
+                  >
+                    {children}
+                  </code>
+                );
+              },
+            }}
+          >
+            {content}
+          </ReactMarkdown>
         </div>
+        <span className="px-0 text-[12px] text-[#8E8EA0] mt-1">
+          {formattedTime}
+        </span>
       </div>
+      {isUser && (
+        <div className="flex h-[24px] w-[24px] shrink-0 select-none items-center justify-center rounded bg-[#ECECF1]">
+          <UserAvatar />
+        </div>
+      )}
     </div>
   );
 }
