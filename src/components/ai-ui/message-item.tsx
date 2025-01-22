@@ -26,8 +26,8 @@ export function MessageItem({ role, content, createdAt }: MessageItemProps) {
   );
 
   const classes = {
-    container: cn("flex gap-3 py-4", isUser && "flex-row-reverse"),
-    content: cn("flex flex-1", isUser ? "justify-end" : "justify-start"),
+    container: cn("flex gap-3 py-4", isUser ? "flex-row" : "flex-row-reverse"),
+    content: cn("flex flex-1", isUser ? "justify-start" : "justify-end"),
     message: cn("max-w-[85%]", !isUser && "bg-muted rounded-2xl px-4 py-3"),
     messageContent: cn("text-right w-full"),
     time: cn(

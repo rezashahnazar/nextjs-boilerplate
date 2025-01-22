@@ -3,12 +3,14 @@ import { memo } from "react";
 import { MessageItem } from "./message-item";
 import { LoadingIndicator } from "./loading-indicator";
 import { ErrorMessage } from "./error-message";
+import { cn } from "@/lib/utils";
 
 interface MessageListProps {
   messages: Message[];
   isLoading: boolean;
   error: Error | undefined;
   onRetry: () => void;
+  className?: string;
 }
 
 // Memoize individual message items to prevent unnecessary re-renders
@@ -22,13 +24,14 @@ export function MessageList({
   isLoading,
   error,
   onRetry,
+  className,
 }: MessageListProps) {
   // Get the last message for streaming optimization
   const lastMessage = messages[messages.length - 1];
   const otherMessages = messages.slice(0, -1);
 
   return (
-    <div className="space-y-4 py-4 md:py-6">
+    <div dir="rtl" className={cn("space-y-4 py-4 md:py-6", className)}>
       {/* Render all messages except the last one */}
       {otherMessages.map((message) => (
         <MemoizedMessageItem

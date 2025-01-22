@@ -48,7 +48,7 @@ export default function RootLayout({
             رفتن به محتوای اصلی
           </a>
           <Header className="h-[64px]" />
-          <main id="main-content" className="container w-full mx-auto">
+          <main id="main-content" className="w-full mx-auto">
             {children}
           </main>
         </CustomThemeProvider>

@@ -20,6 +20,8 @@ const styles = {
     tr: "m-0 p-0 border-t border-border first:border-t-0",
     th: "bg-muted border-b border-r border-border p-3 text-right align-middle font-semibold text-foreground first:rounded-tr-lg last:rounded-tl-lg last:border-r-0",
     td: "border-b border-r border-border p-3 text-right align-middle last:border-r-0 last:rounded-bl-lg first:rounded-br-lg",
+    pre: "text-left text-[13px] dir-ltr",
+    code: "text-left text-[13px] dir-ltr",
   },
   special: {
     table: {
@@ -45,7 +47,10 @@ export const createMarkdownComponents = ({
   const baseComponents = Object.entries(styles.components).reduce(
     (acc, [tag, classes]) => ({
       ...acc,
-      [tag]: create(tag as keyof ElementType, cn(styles.base, classes)),
+      [tag]: create(
+        tag as keyof ElementType,
+        cn(tag !== "pre" && tag !== "code" && styles.base, classes)
+      ),
     }),
     {}
   );
