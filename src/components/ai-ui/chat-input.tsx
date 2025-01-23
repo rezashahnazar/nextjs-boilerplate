@@ -132,31 +132,34 @@ export function ChatInput({
             enterKeyHint="enter"
           />
         </div>
-        <div className="flex items-center justify-between mt-1 shadow-none">
+        <div className="flex items-center justify-between mt-2 shadow-none">
           <div className="flex items-center gap-2">
             <Button
               type="button"
               variant="ghost"
               size="icon"
-              className="h-7 w-7 rounded-lg hover:bg-accent"
+              disabled
+              className="h-7 w-7 rounded-lg hover:bg-accent !opacity-20"
             >
-              <Link2 className="h-4 w-4 text-muted-foreground" />
+              <Link2 className="!size-5 text-muted-foreground" />
             </Button>
             <Button
               type="button"
               variant="ghost"
               size="icon"
-              className="h-7 w-7 rounded-lg hover:bg-accent"
+              disabled
+              className="h-7 w-7 rounded-lg hover:bg-accent !opacity-20"
             >
-              <Calendar className="h-4 w-4 text-muted-foreground" />
+              <Calendar className="!size-4 text-muted-foreground" />
             </Button>
             <Button
               type="button"
               variant="ghost"
               size="icon"
-              className="h-7 w-7 rounded-lg hover:bg-accent"
+              disabled
+              className="h-7 w-7 rounded-lg hover:bg-accent !opacity-20"
             >
-              <Globe className="h-4 w-4 text-muted-foreground" />
+              <Globe className="!size-4 text-muted-foreground" />
             </Button>
           </div>
           {isLoading ? (

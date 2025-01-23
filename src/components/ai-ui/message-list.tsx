@@ -31,7 +31,7 @@ export function MessageList({
   const otherMessages = messages.slice(0, -1);
 
   return (
-    <div dir="rtl" className={cn("space-y-4 py-4 md:py-6", className)}>
+    <div dir="rtl" className={cn("py-2 md:py-4", className)}>
       {/* Render all messages except the last one */}
       {otherMessages.map((message) => (
         <MemoizedMessageItem
