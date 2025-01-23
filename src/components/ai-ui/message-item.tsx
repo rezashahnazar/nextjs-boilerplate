@@ -41,7 +41,7 @@ export function MessageItem({
   );
 
   const classes = {
-    container: cn("flex gap-3 py-6", isUser ? "flex-row" : "flex-row-reverse"),
+    container: cn("flex gap-3 py-1", isUser ? "flex-row" : "flex-row-reverse"),
     content: cn("flex flex-1", isUser ? "justify-start" : "justify-end"),
     message: cn(
       "max-w-[85%] relative",

@@ -60,7 +60,7 @@ export default function RootLayout({
           >
             رفتن به محتوای اصلی
           </a>
-          <Header className="h-[64px]" />
+          <Header className="h-[48px] md:h-[64px]" />
           <main id="main-content" className="w-full mx-auto">
             {children}
           </main>

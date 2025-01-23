@@ -60,7 +60,7 @@ export function ChatUI({ bottomMessage }: { bottomMessage?: string }) {
     ),
     inputContainer: cn(
       "w-full container",
-      "px-4 md:px-6 pb-3 pt-0",
+      "px-4 md:px-6 pb-2 md:pb-3 pt-0",
       "bg-background/80 backdrop-blur-sm"
     ),
   };

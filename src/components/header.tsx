@@ -11,7 +11,7 @@ export function Header({ className }: { className?: string }) {
         className
       )}
     >
-      <div className="flex h-16 items-center justify-between px-4">
+      <div className="flex h-16 items-center justify-between px-4 md:px-6">
         <Link
           href="/"
           className="flex items-center gap-3 transition-colors hover:text-primary"
