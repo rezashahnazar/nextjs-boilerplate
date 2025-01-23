@@ -59,7 +59,7 @@ export function ChatUI({ bottomMessage }: { bottomMessage?: string }) {
       showButton ? "opacity-100" : "opacity-0 pointer-events-none"
     ),
     inputContainer: cn(
-      "w-full container fixed bottom-0",
+      "w-full container sticky bottom-0 mx-auto",
       "px-4 md:px-6 pb-2 md:pb-3 pt-0",
       "bg-background/80 backdrop-blur-sm"
     ),
