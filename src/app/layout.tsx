@@ -1,9 +1,19 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { CustomThemeProvider } from "@/components/theme-provider";
 import { IRANYekan } from "@/fonts/local-fonts";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/header";
+
+export const viewport: Viewport = {
+  themeColor: "hsl(var(--background))",
+  colorScheme: "light dark",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  minimumScale: 1,
+  userScalable: false,
+};
 
 export const metadata: Metadata = {
   title: "Next.js RTL Boilerplate",
