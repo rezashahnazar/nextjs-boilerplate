@@ -1,5 +1,6 @@
-import { ElementType, createElement } from "react";
-import { Components } from "react-markdown";
+import type { JSX } from "react";
+import Image from "next/image";
+import { createElement } from "react";
 import { cn } from "@/lib/utils";
 
 const styles = {
@@ -33,23 +34,39 @@ const styles = {
   },
 } as const;
 
-const create = (tag: keyof ElementType, classNames: string) => {
-  const Element = tag;
-  return ({ children, ...props }: any) =>
-    createElement(Element, { className: classNames, ...props }, children);
+const create = (tag: keyof JSX.IntrinsicElements, classNames: string) => {
+  const Component = ({
+    children,
+    ...props
+  }: JSX.IntrinsicElements[typeof tag]) => {
+    const element = createElement(
+      tag,
+      { className: classNames, ...props },
+      children
+    );
+    return element;
+  };
+  Component.displayName = `Markdown${
+    tag.charAt(0).toUpperCase() + tag.slice(1)
+  }`;
+  return Component;
 };
 
 export const createMarkdownComponents = ({
   isUser = false,
 }: {
   isUser?: boolean;
-}): Components => {
+}) => {
   const baseComponents = Object.entries(styles.components).reduce(
     (acc, [tag, classes]) => ({
       ...acc,
       [tag]: create(
-        tag as keyof ElementType,
-        cn(tag !== "pre" && tag !== "code" && styles.base, classes)
+        tag as keyof JSX.IntrinsicElements,
+        cn(
+          tag !== "pre" && tag !== "code" && styles.base,
+          classes,
+          isUser && tag === "p" && "text-foreground"
+        )
       ),
     }),
     {}
@@ -57,15 +74,29 @@ export const createMarkdownComponents = ({
 
   return {
     ...baseComponents,
-    table: ({ children, ...props }) => (
-      <div className={styles.special.table.wrapper}>
-        <table className={styles.special.table.table} {...props}>
-          {children}
-        </table>
-      </div>
-    ),
-    img: ({ alt, ...props }) => (
-      <img alt={alt} className={styles.special.img} {...props} />
-    ),
+    table: ({ children, ...props }: JSX.IntrinsicElements["table"]) => {
+      const TableWrapper = ({ children }: { children: React.ReactNode }) => (
+        <div className={styles.special.table.wrapper}>
+          <table className={styles.special.table.table} {...props}>
+            {children}
+          </table>
+        </div>
+      );
+      TableWrapper.displayName = "MarkdownTable";
+      return <TableWrapper>{children}</TableWrapper>;
+    },
+    img: ({ alt, src, ...props }: JSX.IntrinsicElements["img"]) => {
+      const ImageWrapper = () => (
+        <Image
+          src={src || ""}
+          alt={alt || ""}
+          className={styles.special.img}
+          width={Number(props.width) || 700}
+          height={Number(props.height) || 400}
+        />
+      );
+      ImageWrapper.displayName = "MarkdownImage";
+      return <ImageWrapper />;
+    },
   };
 };

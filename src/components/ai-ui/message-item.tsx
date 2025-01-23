@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { UserAvatar, AssistantAvatar } from "./avatars";
-import { MessageItemProps } from "./types/message";
+import { MessageItemProps, CodeProps } from "./types/message";
 import { createMarkdownComponents } from "./markdown-components";
 import { CodeBlock } from "./code-block";
 import { useMemo, useState } from "react";
@@ -98,10 +98,13 @@ export function MessageItem({
   const processedContent = isUser ? content : content.split("\n").join("  \n");
 
   // Memoize the code block component
-  const CodeBlockComponent = useMemo(
-    () => (props: any) => <CodeBlock {...props} isUser={isUser} />,
-    [isUser]
-  );
+  const CodeBlockComponent = useMemo<React.ComponentType<CodeProps>>(() => {
+    const Component = (props: CodeProps) => (
+      <CodeBlock {...props} isUser={isUser} />
+    );
+    Component.displayName = "CodeBlockComponent";
+    return Component;
+  }, [isUser]);
 
   const handleCopy = async () => {
     if (copied) return;

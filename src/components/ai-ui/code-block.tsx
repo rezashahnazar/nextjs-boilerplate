@@ -99,7 +99,7 @@ export function CodeBlock({
   const language = match ? match[1] : "";
 
   if (!inline && language) {
-    return <BlockCode language={language} children={children} />;
+    return <BlockCode language={language}>{children}</BlockCode>;
   }
 
   return (

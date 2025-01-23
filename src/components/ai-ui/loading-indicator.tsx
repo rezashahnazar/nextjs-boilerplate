@@ -1,5 +1,3 @@
-import { cn } from "@/lib/utils";
-
 export function LoadingIndicator() {
   return (
     <div className="flex justify-end py-1.5 pl-11">

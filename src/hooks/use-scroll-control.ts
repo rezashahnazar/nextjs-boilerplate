@@ -52,7 +52,7 @@ export function useScrollControl({
     [getScrollElement]
   );
 
-  const useScrollButton = (messages: any[], isLoading: boolean) => {
+  const useScrollButton = <T>(messages: T[], isLoading: boolean) => {
     // Auto-scroll only if we're near bottom and new messages arrive
     useEffect(() => {
       if (!isLoading) return;
@@ -67,7 +67,7 @@ export function useScrollControl({
       if (isNearBottom) {
         scrollToBottom("auto");
       }
-    }, [messages]);
+    }, [messages, isLoading]);
 
     return { showButton, scrollToBottom };
   };

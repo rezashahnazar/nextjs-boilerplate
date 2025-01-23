@@ -1,4 +1,4 @@
-import { ChatService, Message, ProviderConfig } from "@/services/chat";
+import { ChatService } from "@/services/chat";
 
 export const runtime = "edge";
 export const maxDuration = 30;
