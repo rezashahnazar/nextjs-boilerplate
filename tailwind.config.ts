@@ -124,12 +124,28 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
+        surface: {
+          main: "var(--main-surface-background)",
+          message: "var(--message-surface)",
+          sidebar: "var(--sidebar-surface)",
+          "sidebar-floating": "var(--sidebar-surface-floating)",
+        },
+        gray: {
+          50: "var(--gray-50)",
+          100: "var(--gray-100)",
+          200: "var(--gray-200)",
+          300: "var(--gray-300)",
+          400: "var(--gray-400)",
+          500: "var(--gray-500)",
+          600: "var(--gray-600)",
+          700: "var(--gray-700)",
+          750: "var(--gray-750)",
+          800: "var(--gray-800)",
+          900: "var(--gray-900)",
+          950: "var(--gray-950)",
+        },
+        brand: {
+          purple: "var(--brand-purple)",
         },
       },
       borderRadius: {
@@ -154,10 +170,17 @@ const config = {
             height: "0",
           },
         },
+        "spring-bounce": {
+          "0%": { transform: "scale(0.95)" },
+          "50%": { transform: "scale(1.05)" },
+          "100%": { transform: "scale(1)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "spring-bounce":
+          "spring-bounce var(--spring-bounce-duration) cubic-bezier(0.37, 0, 0.63, 1)",
       },
     },
   },

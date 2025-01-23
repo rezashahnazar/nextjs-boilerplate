@@ -72,3 +72,22 @@ We try to write codes of the components clean and readable like below:
     );
     }
 ```
+
+
+I have set styles to resemble ChatGPT. You can use these classes to style your components:
+```
+// For message surfaces
+<div className="bg-surface-message">
+
+// For sidebar
+<aside className="bg-surface-sidebar">
+
+// For main content
+<main className="bg-surface-main">
+
+// For spring animations
+<button className="animate-spring-bounce">
+
+// For text colors using the new gray scale
+<p className="text-gray-600">
+```
