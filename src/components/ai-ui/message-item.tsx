@@ -26,10 +26,14 @@ export function MessageItem({ role, content, createdAt }: MessageItemProps) {
   );
 
   const classes = {
-    container: cn("flex gap-3 py-4", isUser ? "flex-row" : "flex-row-reverse"),
+    container: cn("flex gap-3 py-6", isUser ? "flex-row" : "flex-row-reverse"),
     content: cn("flex flex-1", isUser ? "justify-start" : "justify-end"),
-    message: cn("max-w-[85%]", !isUser && "bg-muted rounded-2xl px-4 py-3"),
-    messageContent: cn("text-right w-full"),
+    message: cn("max-w-[85%]", !isUser && "bg-muted rounded-2xl px-6 py-4"),
+    messageContent: cn(
+      "text-right w-full text-[13px] leading-[1.8]",
+      isUser ? "whitespace-pre-line" : "whitespace-normal",
+      "break-words"
+    ),
     time: cn(
       "block text-[10px] text-muted-foreground/50 mt-2",
       isUser ? "text-right" : "text-left"
@@ -38,6 +42,9 @@ export function MessageItem({ role, content, createdAt }: MessageItemProps) {
 
   const formatTime = (date: Date) =>
     date.toLocaleTimeString("fa-IR", TIME_FORMAT_OPTIONS);
+
+  // Process assistant content to handle newlines properly
+  const processedContent = isUser ? content : content.split("\n").join("  \n");
 
   // Memoize the code block component
   const CodeBlockComponent = useMemo(
@@ -58,10 +65,20 @@ export function MessageItem({ role, content, createdAt }: MessageItemProps) {
               components={{
                 ...markdownComponents,
                 code: CodeBlockComponent,
+                p: ({ children }) => (
+                  <p
+                    className={cn(
+                      "my-0 text-[13px] leading-[1.8]",
+                      !isUser && "whitespace-pre-wrap"
+                    )}
+                  >
+                    {children}
+                  </p>
+                ),
               }}
               skipHtml
             >
-              {content}
+              {processedContent}
             </ReactMarkdown>
             {createdAt && (
               <time dateTime={createdAt.toISOString()} className={classes.time}>

@@ -66,63 +66,51 @@ export function AssistantAvatar() {
       <circle cx="12" cy="12" r="10" className="fill-muted" stroke="none" />
       <circle cx="12" cy="12" r="9" className="fill-muted/50" stroke="none" />
 
-      {/* Circuit paths with theme colors */}
-      <g
+      {/* Three curved lines suggesting movement and intelligence */}
+      <path
         className="stroke-primary"
         strokeWidth="1.2"
-        strokeDasharray="120"
-        strokeDashoffset="120"
-      >
-        <path d="M8 8.5h8M8 12h8M8 15.5h8">
-          <animate
-            attributeName="stroke-dashoffset"
-            dur="1s"
-            values="120;0"
-            fill="freeze"
-            calcMode="spline"
-            keySplines="0.3 0 0.2 1"
-          />
-        </path>
-      </g>
-
-      {/* Connection nodes with theme colors */}
-      <g className="fill-primary">
-        {[
-          [8, 8.5, "0.8s"],
-          [16, 8.5, "0.9s"],
-          [8, 12, "1s"],
-          [16, 12, "1.1s"],
-          [8, 15.5, "1.2s"],
-          [16, 15.5, "1.3s"],
-        ].map(([cx, cy, begin]) => (
-          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="0.85" opacity="0">
-            <animate
-              attributeName="opacity"
-              dur="0.4s"
-              values="0;1"
-              fill="freeze"
-              begin={begin}
-            />
-          </circle>
-        ))}
-      </g>
-
-      {/* Central connection line with theme colors */}
-      <path
-        d="M12 7v10"
-        className="stroke-primary/80"
-        strokeWidth="1.2"
-        strokeDasharray="10"
-        strokeDashoffset="10"
+        strokeDasharray="30"
+        strokeDashoffset="30"
+        d="M8 10c2-2 6-2 8 0"
       >
         <animate
           attributeName="stroke-dashoffset"
-          dur="0.5s"
-          values="10;0"
+          dur="0.4s"
+          values="30;0"
           fill="freeze"
-          begin="1.4s"
-          calcMode="spline"
-          keySplines="0.3 0 0.2 1"
+        />
+      </path>
+
+      <path
+        className="stroke-primary"
+        strokeWidth="1.2"
+        strokeDasharray="30"
+        strokeDashoffset="30"
+        d="M8 12c2-2 6-2 8 0"
+      >
+        <animate
+          attributeName="stroke-dashoffset"
+          dur="0.4s"
+          values="30;0"
+          fill="freeze"
+          begin="0.2s"
+        />
+      </path>
+
+      <path
+        className="stroke-primary"
+        strokeWidth="1.2"
+        strokeDasharray="30"
+        strokeDashoffset="30"
+        d="M8 14c2-2 6-2 8 0"
+      >
+        <animate
+          attributeName="stroke-dashoffset"
+          dur="0.4s"
+          values="30;0"
+          fill="freeze"
+          begin="0.4s"
         />
       </path>
     </svg>

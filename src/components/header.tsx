@@ -1,5 +1,5 @@
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Logo } from "@/components/ui/logo";
+import { Logo } from "@/components/logo";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -17,7 +17,7 @@ export function Header({ className }: { className?: string }) {
           className="flex items-center gap-3 transition-colors hover:text-primary"
           aria-label="صفحه اصلی"
         >
-          <Logo className="w-8 h-8" />
+          <Logo className="h-8 w-8" />
           <span className="text-lg font-bold tracking-tight">Next.js RTL</span>
         </Link>
 
