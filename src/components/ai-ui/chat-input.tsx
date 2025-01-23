@@ -24,6 +24,10 @@ export function ChatInput({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
+  const focusTextarea = () => {
+    textareaRef.current?.focus();
+  };
+
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter") {
       if (e.shiftKey) {
@@ -90,7 +94,8 @@ export function ChatInput({
       <form
         ref={formRef}
         onSubmit={onSubmit}
-        className="flex flex-col rounded-2xl bg-muted p-3 shadow-none"
+        className="flex flex-col rounded-2xl bg-muted p-3 shadow-none cursor-text"
+        onClick={focusTextarea}
       >
         <div className="flex flex-col shadow-none">
           <Textarea
@@ -105,7 +110,7 @@ export function ChatInput({
               "w-full bg-transparent",
               "text-[13px] leading-6 text-foreground",
               "placeholder:text-muted-foreground placeholder:text-[13px]",
-              "border-0 px-0 pr-0.5",
+              "border-0 px-2 py-1",
               "focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none",
               "resize-none",
               "min-h-[24px]",
