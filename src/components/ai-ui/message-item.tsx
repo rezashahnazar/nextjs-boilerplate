@@ -53,7 +53,7 @@ export function MessageItem({
       "break-words"
     ),
     footer: cn(
-      "flex items-end justify-between mt-2",
+      "flex items-end justify-between mt-3",
       isUser && "flex-row-reverse"
     ),
     time: cn(

@@ -1,5 +1,5 @@
 import { createOpenAI } from "@ai-sdk/openai";
-import { streamText } from "ai";
+import { streamText, smoothStream } from "ai";
 
 // Create an OpenAI API client
 const openai = createOpenAI({
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     // Add system prompt to the beginning of the conversation
     const apiMessages = [systemPrompt, ...messages];
 
-    // Request the OpenAI API for the response using streamText
+    // Request the OpenAI API for the response using streamText with smoothStream transform
     const stream = streamText({
       model: openai("gpt-4o-mini"),
       messages: apiMessages,
@@ -38,6 +38,7 @@ export async function POST(req: Request) {
       maxTokens: 2000,
       presencePenalty: 0.1,
       frequencyPenalty: 0.1,
+      experimental_transform: smoothStream(),
     });
 
     // Return the response stream
