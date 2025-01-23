@@ -53,20 +53,20 @@ export function MessageItem({
       "break-words"
     ),
     footer: cn(
-      "flex items-center justify-between mt-2",
+      "flex items-end justify-between mt-2",
       isUser && "flex-row-reverse"
     ),
     time: cn(
-      "text-[10px] text-muted-foreground/50",
+      "text-[10px] text-muted-foreground/50 translate-y-1",
       isUser ? "text-left" : "text-right"
     ),
-    actions: cn("flex gap-3", isUser ? "flex-row" : "flex-row-reverse"),
+    actions: cn("flex gap-4", isUser ? "flex-row" : "flex-row-reverse"),
     actionButton: cn(
-      "h-4 w-4 hover:bg-muted/80 transition-all duration-200",
+      "!size-3 hover:bg-muted/80 transition-all duration-200",
       "text-muted-foreground/50 hover:text-muted-foreground"
     ),
     copyButton: cn(
-      "h-4 w-4 relative transition-all duration-200",
+      "!size-3 relative transition-all duration-200",
       "text-muted-foreground/50 hover:text-muted-foreground group",
       copied && "text-green-500 hover:text-green-600"
     ),
