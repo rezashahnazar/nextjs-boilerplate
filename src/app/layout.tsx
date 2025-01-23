@@ -13,6 +13,8 @@ export const viewport: Viewport = {
   maximumScale: 1,
   minimumScale: 1,
   userScalable: false,
+  height: "device-height",
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {

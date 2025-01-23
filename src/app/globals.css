@@ -114,8 +114,15 @@
 
 /* Base font and styling */
 body {
-  @apply antialiased bg-background text-foreground;
+  @apply antialiased bg-background text-foreground overflow-hidden fixed inset-0;
   font-feature-settings: "rlig" 1, "calt" 1;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+html {
+  @apply overflow-hidden h-full;
+  overscroll-behavior: none;
 }
 
 /* Spring animations */

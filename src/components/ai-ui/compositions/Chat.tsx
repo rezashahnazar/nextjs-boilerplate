@@ -41,7 +41,10 @@ export function ChatUI({ bottomMessage }: { bottomMessage?: string }) {
 
   const classes = {
     root: "size-full flex flex-col relative",
-    scrollArea: "flex-1 px-4 md:px-6 relative overflow-hidden",
+    scrollArea: cn(
+      "flex-1 px-4 md:px-6 relative",
+      "overflow-hidden touch-none select-none"
+    ),
     messageList: "container",
     scrollbar: cn(
       "flex touch-none select-none",
@@ -55,12 +58,20 @@ export function ChatUI({ bottomMessage }: { bottomMessage?: string }) {
       "transition-opacity duration-200",
       showButton ? "opacity-100" : "opacity-0 pointer-events-none"
     ),
-    inputContainer: "px-4 md:px-6 pb-3 pt-0 w-full container",
+    inputContainer: cn(
+      "w-full container",
+      "px-4 md:px-6 pb-3 pt-0",
+      "bg-background/80 backdrop-blur-sm"
+    ),
   };
 
   return (
     <div className={classes.root}>
-      <ScrollArea.Root ref={scrollAreaRef} className={classes.scrollArea}>
+      <ScrollArea.Root
+        ref={scrollAreaRef}
+        className={classes.scrollArea}
+        data-overscroll-behavior="contain"
+      >
         <ScrollArea.Viewport className="size-full">
           <MessageList
             messages={messages}
