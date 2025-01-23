@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { CodeProps } from "./types/message";
+import { CodeProps } from "./message-item";
 
 const BASE_THEME_COLOR = {
   color: "hsl(var(--foreground))",

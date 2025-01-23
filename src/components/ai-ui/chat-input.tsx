@@ -1,32 +1,37 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { FormEvent, KeyboardEvent, useRef, useEffect } from "react";
-import { StopCircle, Link2, Calendar, Globe, ArrowUp } from "lucide-react";
+import { KeyboardEvent, useRef, useEffect } from "react";
+import { Link2, Calendar, Globe, ArrowUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAiChat } from "./ai-chat-provider";
 
 interface ChatInputProps {
-  input: string;
-  isLoading: boolean;
-  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  onInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onStop: () => void;
   bottomMessage?: string;
+  className?: string;
 }
 
 export function ChatInput({
-  input,
-  isLoading,
-  onSubmit,
-  onInputChange,
-  onStop,
   bottomMessage = "پاسخ هوش مصنوعی ممکن است اشتباه باشد.",
+  className,
 }: ChatInputProps) {
+  const { input, isLoading, handleInputChange, handleSubmit, stop } =
+    useAiChat();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const stopButtonRef = useRef<HTMLButtonElement>(null);
 
   const focusTextarea = () => {
     textareaRef.current?.focus();
   };
+
+  // Handle focus management based on loading state
+  useEffect(() => {
+    if (isLoading) {
+      stopButtonRef.current?.focus();
+    } else {
+      focusTextarea();
+    }
+  }, [isLoading]);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter") {
@@ -42,7 +47,6 @@ export function ChatInput({
         requestAnimationFrame(() => {
           if (textareaRef.current) {
             textareaRef.current.style.height = "24px";
-            textareaRef.current.focus();
           }
         });
       }
@@ -67,7 +71,14 @@ export function ChatInput({
     textarea.style.overflow = newHeight === maxHeight ? "auto" : "hidden";
   };
 
-  // Adjust height on mount and input changes
+  // Handle input changes
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    handleInputChange(e);
+    // Use RAF to ensure the DOM has updated
+    requestAnimationFrame(adjustHeight);
+  };
+
+  // Adjust height on mount and handle font loading
   useEffect(() => {
     const textarea = textareaRef.current;
     if (!textarea) return;
@@ -82,18 +93,18 @@ export function ChatInput({
     return () => resizeObserver.disconnect();
   }, []);
 
-  // Handle input changes
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    onInputChange(e);
-    // Use RAF to ensure the DOM has updated
-    requestAnimationFrame(adjustHeight);
-  };
-
   return (
-    <div className="w-full">
+    <div
+      className={cn(
+        "w-full container sticky bottom-0 mx-auto",
+        "px-4 md:px-6 pb-2 md:pb-3 pt-0",
+        "bg-background/80 backdrop-blur-sm",
+        className
+      )}
+    >
       <form
         ref={formRef}
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         className="flex flex-col rounded-2xl bg-muted p-3 shadow-none cursor-text"
         onClick={focusTextarea}
       >
@@ -164,13 +175,20 @@ export function ChatInput({
           </div>
           {isLoading ? (
             <Button
+              ref={stopButtonRef}
               type="button"
               variant="ghost"
               size="icon"
-              onClick={onStop}
-              className="h-7 w-7 rounded-lg hover:bg-accent"
+              onClick={stop}
+              className={cn(
+                "h-7 w-7 rounded-lg",
+                "bg-destructive/10 hover:bg-destructive/20",
+                "text-destructive hover:text-destructive",
+                "transition-colors duration-200",
+                "ring-1 ring-destructive/40 hover:ring-destructive/60"
+              )}
             >
-              <StopCircle className="h-[15px] w-[15px] text-muted-foreground" />
+              <div className="h-[10px] w-[10px] bg-current rounded-[2px]" />
             </Button>
           ) : (
             <Button

@@ -2,7 +2,6 @@ import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { UserAvatar, AssistantAvatar } from "./avatars";
-import { MessageItemProps, CodeProps } from "./types/message";
 import { createMarkdownComponents } from "./markdown-components";
 import { CodeBlock } from "./code-block";
 import { useMemo, useState } from "react";
@@ -14,6 +13,21 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Copy, RotateCcw, Check } from "lucide-react";
+
+import { Message } from "ai";
+import { ComponentPropsWithoutRef } from "react";
+
+export interface MessageItemProps {
+  role: Message["role"];
+  content: string;
+  createdAt?: Date;
+  onRetry?: () => void;
+}
+
+export type CodeProps = ComponentPropsWithoutRef<"code"> & {
+  inline?: boolean;
+  isUser?: boolean;
+};
 
 const TIME_FORMAT_OPTIONS = {
   hour: "2-digit",
