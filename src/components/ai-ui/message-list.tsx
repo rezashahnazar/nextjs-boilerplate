@@ -41,6 +41,7 @@ export function MessageList({
           createdAt={
             message.createdAt ? new Date(message.createdAt) : undefined
           }
+          onRetry={message.role === "assistant" ? onRetry : undefined}
         />
       ))}
 
@@ -53,6 +54,7 @@ export function MessageList({
           createdAt={
             lastMessage.createdAt ? new Date(lastMessage.createdAt) : undefined
           }
+          onRetry={lastMessage.role === "assistant" ? onRetry : undefined}
         />
       )}
 
