@@ -6,10 +6,10 @@ import { AiChatProvider } from "@/components/ai-ui/ai-chat-provider";
 
 export default function Home() {
   return (
-    <div className="w-full h-[calc(100dvh-64px)] overflow-hidden">
-      <AiChatProvider>
+    <div className="flex flex-col w-full h-[calc(100dvh-48px)] md:h-[calc(100dvh-64px)]">
+      <AiChatProvider api="/api/chat">
         <MessageList />
-        <ChatInput bottomMessage="پاسخ هوش مصنوعی ممکن است اشتباه باشد." />
+        <ChatInput />
       </AiChatProvider>
     </div>
   );

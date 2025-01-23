@@ -1,5 +1,5 @@
-import { ThemeToggle } from "@/components/theme-toggle";
-import { Logo } from "@/components/logo";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { Logo } from "@/components/brand/logo";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 

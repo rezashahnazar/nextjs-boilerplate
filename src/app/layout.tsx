@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { CustomThemeProvider } from "@/components/theme-provider";
+import { CustomThemeProvider } from "@/components/theme/theme-provider";
 import { IRANYekan } from "@/fonts/local-fonts";
 import { cn } from "@/lib/utils";
-import { Header } from "@/components/header";
+import { Header } from "@/components/layout/header";
 
 export const viewport: Viewport = {
   themeColor: "hsl(var(--background))",
@@ -62,7 +62,7 @@ export default function RootLayout({
           </a>
           <Header className="h-[48px] md:h-[64px]" />
           <main id="main-content" className="w-full mx-auto">
-            {children}
+            <div className="container mx-auto px-4 md:px-6">{children}</div>
           </main>
         </CustomThemeProvider>
       </body>
