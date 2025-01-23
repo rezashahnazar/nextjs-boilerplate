@@ -66,51 +66,56 @@ export function AssistantAvatar() {
       <circle cx="12" cy="12" r="10" className="fill-muted" stroke="none" />
       <circle cx="12" cy="12" r="9" className="fill-muted/50" stroke="none" />
 
-      {/* Three curved lines suggesting movement and intelligence */}
+      {/* Stylized 'N' with Persian calligraphy influence */}
       <path
         className="stroke-primary"
         strokeWidth="1.2"
-        strokeDasharray="30"
-        strokeDashoffset="30"
-        d="M8 10c2-2 6-2 8 0"
+        strokeDasharray="50"
+        strokeDashoffset="50"
+        d="M8 8h1c3 0 3 8 6 8h-1c-3 0-3-8-6-8z"
       >
         <animate
           attributeName="stroke-dashoffset"
-          dur="0.4s"
-          values="30;0"
+          dur="0.6s"
+          values="50;0"
           fill="freeze"
+          calcMode="spline"
+          keySplines="0.3 0 0.2 1"
         />
       </path>
 
-      <path
-        className="stroke-primary"
-        strokeWidth="1.2"
-        strokeDasharray="30"
-        strokeDashoffset="30"
-        d="M8 12c2-2 6-2 8 0"
-      >
+      {/* Decorative dot */}
+      <circle cx="15" cy="9" r="1" className="fill-primary opacity-0">
         <animate
-          attributeName="stroke-dashoffset"
-          dur="0.4s"
-          values="30;0"
+          attributeName="opacity"
+          dur="0.3s"
+          values="0;1"
           fill="freeze"
-          begin="0.2s"
+          begin="0.6s"
         />
-      </path>
+        <animate
+          attributeName="r"
+          dur="2s"
+          values="0.8;1;0.8"
+          repeatCount="indefinite"
+          begin="0.9s"
+        />
+      </circle>
 
+      {/* Modern accent line */}
       <path
         className="stroke-primary"
-        strokeWidth="1.2"
-        strokeDasharray="30"
-        strokeDashoffset="30"
-        d="M8 14c2-2 6-2 8 0"
+        strokeWidth="1"
+        strokeDasharray="16"
+        strokeDashoffset="16"
+        d="M7 16h10"
       >
         <animate
           attributeName="stroke-dashoffset"
           dur="0.4s"
-          values="30;0"
+          values="16;0"
           fill="freeze"
-          begin="0.4s"
+          begin="0.8s"
         />
       </path>
     </svg>

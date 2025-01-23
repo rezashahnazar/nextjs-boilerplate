@@ -36,9 +36,10 @@ export default function RootLayout({
       >
         <CustomThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
+          enableColorScheme
         >
           {/* Skip to main content link for keyboard users */}
           <a

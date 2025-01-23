@@ -33,17 +33,19 @@ export default function Icon() {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <circle cx="12" cy="12" r="10" fill="#4F46E5" stroke="none" />
-          <circle
-            cx="12"
-            cy="12"
-            r="9"
-            fill="rgba(79,70,229,0.9)"
-            stroke="none"
+          {/* Stylized 'N' */}
+          <path d="M6 4h2c6 0 6 16 12 16h-2c-6 0-6-16-12-16z" fill="#4F46E5" />
+
+          {/* Decorative dot */}
+          <circle cx="18" cy="6" r="1.5" fill="#4F46E5" />
+
+          {/* Modern accent */}
+          <path
+            stroke="#4F46E5"
+            strokeWidth="1"
+            d="M4 20h16"
+            strokeDasharray="2 2"
           />
-          <path stroke="white" strokeWidth="1.5" d="M8 10c2-2 6-2 8 0" />
-          <path stroke="white" strokeWidth="1.5" d="M8 12c2-2 6-2 8 0" />
-          <path stroke="white" strokeWidth="1.5" d="M8 14c2-2 6-2 8 0" />
         </svg>
       </div>
     ),

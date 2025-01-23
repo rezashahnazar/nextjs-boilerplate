@@ -18,61 +18,41 @@ export function Logo({ className, size = 24 }: LogoProps) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      {/* Layered background using theme colors */}
-      <circle cx="12" cy="12" r="10" className="fill-primary" stroke="none" />
-      <circle cx="12" cy="12" r="9" className="fill-primary/90" stroke="none" />
-
-      {/* Three curved lines suggesting movement and intelligence */}
+      {/* Stylized 'N' with Persian calligraphy influence */}
       <path
-        className="stroke-background"
-        strokeWidth="1.5"
-        strokeDasharray="30"
-        strokeDashoffset="30"
-        d="M8 10c2-2 6-2 8 0"
+        className="fill-primary"
+        d="M6 4h2c6 0 6 16 12 16h-2c-6 0-6-16-12-16z"
       >
         <animate
-          attributeName="stroke-dashoffset"
-          dur="0.6s"
-          values="30;0"
-          fill="freeze"
-          calcMode="spline"
-          keySplines="0.3 0 0.2 1"
+          attributeName="opacity"
+          dur="3s"
+          values="0.95;1;0.95"
+          repeatCount="indefinite"
         />
       </path>
 
-      <path
-        className="stroke-background"
-        strokeWidth="1.5"
-        strokeDasharray="30"
-        strokeDashoffset="30"
-        d="M8 12c2-2 6-2 8 0"
-      >
+      {/* Decorative dot - inspired by Persian diacritical marks */}
+      <circle cx="18" cy="6" r="1.5" className="fill-primary">
         <animate
-          attributeName="stroke-dashoffset"
-          dur="0.6s"
-          values="30;0"
-          fill="freeze"
-          calcMode="spline"
-          keySplines="0.3 0 0.2 1"
-          begin="0.2s"
+          attributeName="r"
+          dur="3s"
+          values="1.2;1.5;1.2"
+          repeatCount="indefinite"
         />
-      </path>
+      </circle>
 
+      {/* Modern geometric accent */}
       <path
-        className="stroke-background"
-        strokeWidth="1.5"
-        strokeDasharray="30"
-        strokeDashoffset="30"
-        d="M8 14c2-2 6-2 8 0"
+        className="stroke-primary"
+        strokeWidth="1"
+        d="M4 20h16"
+        strokeDasharray="2 2"
       >
         <animate
           attributeName="stroke-dashoffset"
-          dur="0.6s"
-          values="30;0"
-          fill="freeze"
-          calcMode="spline"
-          keySplines="0.3 0 0.2 1"
-          begin="0.4s"
+          dur="15s"
+          values="0;100"
+          repeatCount="indefinite"
         />
       </path>
     </svg>
