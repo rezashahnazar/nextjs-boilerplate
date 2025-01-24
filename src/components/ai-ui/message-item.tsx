@@ -82,7 +82,7 @@ const styles = {
       "text-[10px] text-muted-foreground/50 translate-y-1",
       isUser ? "text-left" : "text-right"
     ),
-    actions: cn("flex gap-4", isUser ? "flex-row" : "flex-row-reverse"),
+    actions: cn("flex gap-6", isUser ? "flex-row" : "flex-row-reverse"),
   }),
 
   button: (copied: boolean, isAnimating: boolean) => ({

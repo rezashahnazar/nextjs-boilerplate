@@ -5,12 +5,12 @@
 @layer base {
   /* Set base font size to 10px on small screens */
   html {
-    font-size: 62.5%; /* 10px */
+    font-size: 75%; /* 12px */
   }
 
   @media (min-width: 375px) {
     html {
-      font-size: 75%; /* 12 px */
+      font-size: 87.5%; /* 14px */
     }
   }
 
