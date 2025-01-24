@@ -47,6 +47,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 15%;
     --primary: 270 100% 70%;
+    --primary-rgb: 171, 104, 255;
     --primary-foreground: 0 0% 100%;
     --secondary: 0 0% 96%;
     --secondary-foreground: 0 0% 15%;
@@ -105,11 +106,10 @@
     --sidebar-surface: #2b2b2b;
     --sidebar-surface-floating: rgba(45, 45, 45, 0.95);
   }
-}
 
-/* Ensure smooth transitions */
-* {
-  @apply transition-colors duration-200;
+  * {
+    @apply border-border transition-colors duration-200;
+  }
 }
 
 /* Base font and styling */
@@ -123,21 +123,4 @@ body {
 html {
   @apply overflow-hidden h-full;
   overscroll-behavior: none;
-}
-
-/* Spring animations */
-@keyframes spring-bounce {
-  0% { transform: scale(0.95); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.spring-bounce {
-  animation: spring-bounce var(--spring-bounce-duration) cubic-bezier(0.37, 0, 0.63, 1);
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
 }

@@ -154,32 +154,75 @@ const config = {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "pulse-line": {
+          "0%": { transform: "translateX(-100%)" },
+          "50%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+        "pulse-fade": {
+          "0%, 100%": { opacity: "0.3" },
+          "50%": { opacity: "0.9" },
+        },
+        "dot-bounce": {
+          "0%, 80%, 100%": { transform: "translateY(0)", opacity: "0.6" },
+          "40%": { transform: "translateY(-4px)", opacity: "1" },
+        },
+        thinking: {
+          "0%, 100%": { opacity: "0.3", transform: "translateY(0)" },
+          "50%": { opacity: "0.7", transform: "translateY(-0.3rem)" },
         },
         "spring-bounce": {
           "0%": { transform: "scale(0.95)" },
           "50%": { transform: "scale(1.05)" },
           "100%": { transform: "scale(1)" },
         },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-4px)" },
+        },
+        pulse: {
+          "0%, 100%": { opacity: "0.4", transform: "scale(0.98)" },
+          "50%": { opacity: "1", transform: "scale(1.02)" },
+        },
+        shimmer: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
+        glow: {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "0.8" },
+        },
+        "loading-bar": {
+          "0%, 100%": { transform: "scaleX(0.25)", opacity: "0.5" },
+          "50%": { transform: "scaleX(1)", opacity: "1" },
+        },
+        "gradient-move": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "100% 50%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-line": "pulse-line 2s cubic-bezier(0.4, 0, 0.2, 1) infinite",
+        "pulse-fade": "pulse-fade 0.9s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "dot-bounce": "dot-bounce 1.4s ease-in-out infinite",
+        thinking: "thinking 1.4s ease-in-out infinite",
         "spring-bounce":
           "spring-bounce var(--spring-bounce-duration) cubic-bezier(0.37, 0, 0.63, 1)",
+        float: "float 1.5s ease-in-out infinite",
+        pulse: "pulse 2s ease-in-out infinite",
+        shimmer: "shimmer 2s linear infinite",
+        glow: "glow 2s ease-in-out infinite",
+        "loading-bar": "loading-bar 2s ease-in-out infinite",
+        "gradient-move": "gradient-move 2s linear infinite",
       },
     },
   },

@@ -121,7 +121,10 @@ function Messages({ messages, isLoading, error, reload }: MessagesProps) {
         />
       )}
 
-      {isLoading && lastMessage?.role !== "assistant" && <LoadingIndicator />}
+      {isLoading && lastMessage?.role !== "assistant" && (
+        // The loading indicator should be placed exactly in the same position as when the assistant message gets streamed
+        <LoadingIndicator className="ml-16 max-w-[calc(85%-3rem)] mr-auto" />
+      )}
       {error && <ErrorMessage onRetry={reload} />}
     </div>
   );
