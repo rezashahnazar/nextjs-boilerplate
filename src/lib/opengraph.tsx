@@ -2,8 +2,6 @@ import { ImageResponse } from "next/og";
 import { ReactNode } from "react";
 import Image from "next/image";
 
-
-
 /**
  * Renders Persian text properly for Open Graph image generation.
  *
@@ -145,7 +143,7 @@ export async function createOpenGraphImage({
   width = 1200,
   height = 630,
   background,
-  alt = "Next.js RTL Boilerplate",
+  alt = "وبسایت شخصی رضا شاه‌نظر",
 }: OpenGraphImageOptions): Promise<ImageResponse> {
   // Load IRANYekan font files with different weights
   const [fontData, fontDataBold, fontDataBlack] = await Promise.all([
