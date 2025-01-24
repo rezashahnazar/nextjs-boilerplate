@@ -2,24 +2,69 @@ import { cn } from "@/lib/utils";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { CodeProps } from "./message-item";
 
-const BASE_THEME_COLOR = {
-  color: "hsl(var(--foreground))",
+const BASE_STYLE = {
+  color: "#e5e7eb",
   background: "none",
 } as const;
 
 const SYNTAX_THEME = {
-  'code[class*="language-"]': BASE_THEME_COLOR,
-  'pre[class*="language-"]': BASE_THEME_COLOR,
-  comment: { color: "hsl(var(--muted-foreground))" },
-  function: { color: "hsl(var(--primary))" },
-  keyword: { color: "hsl(var(--secondary))" },
-  string: { color: "hsl(var(--success))" },
-  number: { color: "hsl(var(--warning))" },
-  "class-name": { color: "hsl(var(--info))" },
-  operator: { color: "hsl(var(--accent))" },
-  punctuation: { color: "hsl(var(--muted))" },
-  property: { color: "hsl(var(--primary))" },
-  variable: { color: "hsl(var(--foreground))" },
+  'code[class*="language-"]': {
+    color: "#e5e7eb",
+    background: "none",
+  },
+  'pre[class*="language-"]': {
+    color: "#e5e7eb",
+    background: "none",
+  },
+  comment: {
+    color: "#6b7280",
+  },
+  function: {
+    color: "#93c5fd",
+  },
+  keyword: {
+    color: "#f472b6",
+  },
+  string: {
+    color: "#86efac",
+  },
+  number: {
+    color: "#fcd34d",
+  },
+  "class-name": {
+    color: "#60a5fa",
+  },
+  operator: {
+    color: "#e879f9",
+  },
+  punctuation: {
+    color: "#d1d5db",
+  },
+  property: {
+    color: "#93c5fd",
+  },
+  variable: {
+    color: "#e5e7eb",
+  },
+  tag: {
+    color: "#93c5fd",
+  },
+  builtin: {
+    color: "#f472b6",
+  },
+  regex: {
+    color: "#86efac",
+  },
+  important: {
+    color: "#f472b6",
+    fontWeight: "bold",
+  },
+  bold: {
+    fontWeight: "bold",
+  },
+  italic: {
+    fontStyle: "italic",
+  },
 } as const;
 
 const SYNTAX_HIGHLIGHTER_STYLE = {
@@ -45,7 +90,7 @@ const BLOCK_CLASSES = {
   language: "text-xs font-medium text-zinc-400",
   dotsContainer: "flex gap-1.5",
   dot: "w-3 h-3 rounded-full",
-  codeContainer: "relative bg-zinc-900 overflow-x-auto",
+  codeContainer: "relative bg-zinc-900",
 } as const;
 
 const INLINE_CODE_BASE_CLASSES =
@@ -79,6 +124,7 @@ function BlockCode({
           style={SYNTAX_THEME}
           customStyle={SYNTAX_HIGHLIGHTER_STYLE}
           showLineNumbers={false}
+          wrapLongLines={true}
           PreTag="div"
         >
           {String(children).replace(/\n$/, "")}
