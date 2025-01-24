@@ -10,8 +10,26 @@ export const metadata: Metadata = {
   creator: "Reza Shahnazar",
   metadataBase: new URL("https://shahnazar.me"),
   openGraph: {
+    title: "Next.js RTL Boilerplate",
+    description:
+      "A Professional Next.js boilerplate with RTL support for Persian websites",
     type: "website",
-    locale: "fa_IR",
+    url: "https://shahnazar.me", // Replace with your actual domain
     siteName: "Next.js RTL Boilerplate",
+    images: [
+      {
+        url: "https://shahnazar.me/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Next.js RTL Boilerplate",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Next.js RTL Boilerplate",
+    description:
+      "A Professional Next.js boilerplate with RTL support for Persian websites",
+    images: ["https://shahnazar.me/opengraph-image"],
   },
 };

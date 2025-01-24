@@ -1,4 +1,3 @@
-import { type ReactNode } from "react";
 import "./globals.css";
 import { CustomThemeProvider } from "@/components/theme/theme-provider";
 import { IRANYekan } from "@/fonts/local-fonts";
@@ -12,23 +11,21 @@ export { metadata, viewport };
 
 const BODY_BASE_CLASSES = "antialiased bg-background text-foreground";
 
-const THEME_PROVIDER_PROPS = {
-  attribute: "class",
-  defaultTheme: "system",
-  enableSystem: true,
-  disableTransitionOnChange: true,
-  enableColorScheme: true,
-} as const;
-
-interface RootLayoutProps {
-  children: ReactNode;
-}
-
-export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="fa-IR" dir="rtl" suppressHydrationWarning>
       <body className={cn(IRANYekan.className, BODY_BASE_CLASSES)}>
-        <CustomThemeProvider {...THEME_PROVIDER_PROPS}>
+        <CustomThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+          enableColorScheme
+        >
           <SkipLink href="#main-content">رفتن به محتوای اصلی</SkipLink>
           <Header className="h-[48px] md:h-[64px]" />
           <main id="main-content" className="w-full mx-auto">
