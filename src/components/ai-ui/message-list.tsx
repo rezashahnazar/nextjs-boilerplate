@@ -1,3 +1,4 @@
+"use client";
 import { useCallback, useEffect } from "react";
 import { MessageItem } from "./message-item";
 import { LoadingIndicator } from "./loading-indicator";
