@@ -108,7 +108,7 @@ function Messages({
   const { lastMessage, otherMessages } = messages;
 
   return (
-    <div dir="rtl" className="py-4 space-y-4">
+    <div dir="rtl" className="py-2 space-y-6">
       {otherMessages.map((message) => (
         <MessageContent key={message.id} message={message} onRetry={reload} />
       ))}

@@ -25,7 +25,7 @@ export function MessageContent({ content, isUser }: MessageContentProps) {
     [isUser]
   );
 
-  const processedContent = isUser ? content : content.split("\n").join("  \n");
+  const newlineProcessedContent = content.split("\n").join("  \n");
 
   return (
     <ReactMarkdown
@@ -45,7 +45,7 @@ export function MessageContent({ content, isUser }: MessageContentProps) {
         ),
       }}
     >
-      {processedContent}
+      {newlineProcessedContent}
     </ReactMarkdown>
   );
 }
