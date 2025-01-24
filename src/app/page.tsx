@@ -1,13 +1,17 @@
 import dynamic from "next/dynamic";
 
 const AiChatProvider = dynamic(
-  () => import("@/components/ai-ui/ai-chat-provider").then((mod) => mod.AiChatProvider),
+  () =>
+    import("@/components/ai-ui/ai-chat-provider").then(
+      (mod) => mod.AiChatProvider
+    ),
   {
     ssr: true,
   }
 );
 const MessageList = dynamic(
-  () => import("@/components/ai-ui/message-list").then((mod) => mod.MessageList),
+  () =>
+    import("@/components/ai-ui/message-list").then((mod) => mod.MessageList),
   {
     ssr: true,
   }

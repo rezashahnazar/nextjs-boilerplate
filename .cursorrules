@@ -3,8 +3,9 @@ We work with typescript + tailwindcss. The tailwind config is tailwind.config.ts
 We prefer not to use framer-motion as it makes the UI heavy.
 For the deisgn of UI, imagine you are Jony Ive and you want to design a clean professional sophisticated website. UI should look amazing, work smoothly and be responsive in mobile and desktop.
 We try to develop with handling all accessibility best practices in mind.
-Shadcn components should be added by pnpx shadcn@latest add <component-name>
+Shadcn components should be added by "pnpx shadcn@latest add <component-name>"
 For full height sizing, use min-h-dvh class.
 All designs should be aesthetically theme-able. We prefer using foreground for text- , bg- , fill- , stroke- , ... and mixed with foreground and background root colors and compositing them with tailwindcss. No need to provide separate dark: classes.
 In our codes, we prefer to place styles directly into the JSX codes using Tailwind classes.
 When defining new animations, use tailwind.config.ts config file instead of globals.css and ensure classes are not defined before.
+Be careful not to use "any" type.
