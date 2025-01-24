@@ -49,7 +49,7 @@ export function MessageItem({
       {/* Message Bubble */}
       <div
         className={cn(
-          "flex flex-1 max-w-[85%] relative flex-col justify-between items-stretch gap-3",
+          "flex flex-1 max-w-[85%] relative flex-col justify-between items-stretch gap-5",
           isUser
             ? "bg-transparent"
             : "bg-muted px-6 py-4 rounded-2xl overflow-hidden "
@@ -61,7 +61,7 @@ export function MessageItem({
         {/* Bottom part: Loading indicator (when isStreaming) or action buttons + Time (after stream ends) */}
         <div
           className={cn(
-            "flex items-end w-full justify-between h-[24px]",
+            "flex items-end w-full justify-between h-5 md:h-4",
             isUser ? "flex-row" : "flex-row-reverse"
           )}
         >

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Copy, RotateCcw } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ActionButton } from "./action-button";
@@ -26,6 +26,21 @@ export function MessageActions({
 }: MessageActionsProps) {
   const [copied, setCopied] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const timeoutRef = useRef<{
+    animation?: NodeJS.Timeout;
+    reset?: NodeJS.Timeout;
+  }>({});
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current.animation) {
+        clearTimeout(timeoutRef.current.animation);
+      }
+      if (timeoutRef.current.reset) {
+        clearTimeout(timeoutRef.current.reset);
+      }
+    };
+  }, []);
 
   const handleCopy = async () => {
     if (copied) return;
@@ -35,18 +50,13 @@ export function MessageActions({
       setCopied(true);
       setIsAnimating(true);
 
-      const animationTimeout = setTimeout(() => {
+      timeoutRef.current.animation = setTimeout(() => {
         setIsAnimating(false);
       }, 800);
 
-      const resetTimeout = setTimeout(() => {
+      timeoutRef.current.reset = setTimeout(() => {
         setCopied(false);
       }, 2000);
-
-      return () => {
-        clearTimeout(animationTimeout);
-        clearTimeout(resetTimeout);
-      };
     }
   };
 
@@ -54,7 +64,7 @@ export function MessageActions({
   const showCopy = !isUser;
 
   return (
-    <div className="flex gap-6">
+    <div className="flex gap-4 h-full w-fit">
       <TooltipProvider>
         {onRetry && (
           <ActionButton

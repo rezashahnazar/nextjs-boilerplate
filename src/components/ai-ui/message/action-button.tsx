@@ -31,8 +31,9 @@ export function ActionButton({
           variant="ghost"
           size="icon"
           className={cn(
-            "!h-auto !w-auto relative transition-all duration-300",
-            "text-muted-foreground/50 hover:text-muted-foreground",
+            "relative transition-all duration-300 h-full w-auto aspect-square rounded-sm",
+            "text-muted-foreground/50 hover:text-muted-foreground hover:bg-transparent",
+            "cursor-pointer",
             copied && "text-green-500 hover:text-green-600"
           )}
           onClick={onClick}
@@ -40,7 +41,7 @@ export function ActionButton({
           {isAnimating && (
             <div
               className={cn(
-                "absolute inset-[-4px] rounded-full border-2 transition-all duration-500",
+                "absolute inset-[-4px] rounded-full border-2 pointer-events-none transition-all duration-500",
                 isAnimating
                   ? "border-green-500 scale-125 opacity-0"
                   : "border-transparent scale-100 opacity-100"
@@ -48,31 +49,31 @@ export function ActionButton({
             />
           )}
           {!isCopyIcon && (
-            <div className="flex items-center justify-center">
-              <Icon className="!h-[16px] !w-[16px]" />
+            <div className="flex items-center justify-center w-full h-full">
+              <Icon className="!h-full !w-auto !aspect-square" />
             </div>
           )}
           {isCopyIcon && (
             <>
               <div
                 className={cn(
-                  "absolute inset-0 flex items-center justify-center transition-all duration-300",
+                  "absolute inset-0 flex items-center justify-center pointer-events-none transition-all duration-300",
                   !copied
                     ? "opacity-100 scale-100 rotate-0"
                     : "opacity-0 scale-0 rotate-90"
                 )}
               >
-                <Icon className="!h-[16px] !w-[16px]" />
+                <Icon className="!h-full !w-auto !aspect-square" />
               </div>
               <div
                 className={cn(
-                  "absolute inset-0 flex items-center justify-center transition-all duration-300",
+                  "absolute inset-0 flex items-center justify-center pointer-events-none transition-all duration-300",
                   copied
                     ? "opacity-100 scale-100 rotate-0"
                     : "opacity-0 scale-0 rotate-90"
                 )}
               >
-                <Check className="!h-[16px] !w-[16px]" />
+                <Check className="!h-full !w-auto !aspect-square" />
               </div>
             </>
           )}
