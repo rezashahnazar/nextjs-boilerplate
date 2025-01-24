@@ -2,13 +2,7 @@ import { ImageResponse } from "next/og";
 import { ReactNode } from "react";
 import Image from "next/image";
 
-// Export OpenGraph image metadata
-export const alt = "Next.js RTL Boilerplate";
-export const size = {
-  width: 1200,
-  height: 630,
-};
-export const contentType = "image/png";
+
 
 /**
  * Renders Persian text properly for Open Graph image generation.

@@ -1,35 +1,35 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Next.js RTL Boilerplate",
+  title: "وبسایت شخصی رضا شاه‌نظر",
   description:
-    "A professional Next.js boilerplate with RTL support for Persian websites",
+    "وبسایت شخصی رضا شاه‌نظر.",
   authors: [
     { name: "Reza Shahnazar", url: "https://github.com/rezashahnazar" },
   ],
   creator: "Reza Shahnazar",
   metadataBase: new URL("https://shahnazar.me"),
   openGraph: {
-    title: "Next.js RTL Boilerplate",
+    title: "وبسایت شخصی رضا شاه‌نظر",
     description:
-      "A Professional Next.js boilerplate with RTL support for Persian websites",
+      "وبسایت شخصی رضا شاه‌نظر.",
     type: "website",
     url: "https://shahnazar.me", // Replace with your actual domain
-    siteName: "Next.js RTL Boilerplate",
+    siteName: "وبسایت شخصی رضا شاه‌نظر",
     images: [
       {
         url: "https://shahnazar.me/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Next.js RTL Boilerplate",
+        alt: "وبسایت شخصی رضا شاه‌نظر",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Next.js RTL Boilerplate",
+    title: "وبسایت شخصی رضا شاه‌نظر",
     description:
-      "A Professional Next.js boilerplate with RTL support for Persian websites",
+      "وبسایت شخصی رضا شاه‌نظر.",
     images: ["https://shahnazar.me/opengraph-image"],
   },
 };
