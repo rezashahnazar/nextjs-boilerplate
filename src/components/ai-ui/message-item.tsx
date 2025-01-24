@@ -49,8 +49,10 @@ export function MessageItem({
       {/* Message Bubble */}
       <div
         className={cn(
-          "flex flex-1 max-w-[85%] relative flex-col justify-between items-stretch rounded-2xl overflow-hidden gap-3",
-          isUser ? "bg-transparent" : "bg-muted px-6 py-4"
+          "flex flex-1 max-w-[85%] relative flex-col justify-between items-stretch gap-3",
+          isUser
+            ? "bg-transparent"
+            : "bg-muted px-6 py-4 rounded-2xl overflow-hidden "
         )}
       >
         {/* Top part: Message content */}

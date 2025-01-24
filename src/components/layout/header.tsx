@@ -10,7 +10,7 @@ interface HeaderProps {
 
 export function Header({ title, logo, className }: HeaderProps) {
   return (
-    <header className={cn("sticky top-0 z-50 w-full bg-background", className)}>
+    <header className={cn("sticky top-0 z-50 w-full", className)}>
       <div className="flex h-16 items-center justify-between px-4 md:px-6">
         <Link
           href="/"

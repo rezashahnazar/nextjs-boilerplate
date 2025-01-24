@@ -48,7 +48,7 @@ export function ChatInput({
   return (
     <div
       className={cn(
-        "w-full container sticky bottom-0 mx-auto",
+        "w-full sticky bottom-0 mx-auto",
         "px-4 md:px-6 pb-2 md:pb-3 pt-0",
         className
       )}
@@ -57,7 +57,7 @@ export function ChatInput({
         ref={formRef}
         onSubmit={handleSubmit}
         onClick={focusTextarea}
-        className="flex flex-col rounded-2xl bg-muted p-3 shadow-none cursor-text"
+        className="flex flex-col rounded-2xl bg-muted p-3 shadow-none cursor-text container"
       >
         <ChatTextarea
           value={input}

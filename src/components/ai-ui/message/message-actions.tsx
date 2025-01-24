@@ -54,7 +54,7 @@ export function MessageActions({
   const showCopy = !isUser;
 
   return (
-    <div className="flex gap-5">
+    <div className="flex gap-6">
       <TooltipProvider>
         {onRetry && (
           <ActionButton

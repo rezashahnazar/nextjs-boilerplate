@@ -31,7 +31,7 @@ export function ActionButton({
           variant="ghost"
           size="icon"
           className={cn(
-            "!h-auto !w-auto relative transition-all duration-300 !p-1",
+            "!h-auto !w-auto relative transition-all duration-300",
             "text-muted-foreground/50 hover:text-muted-foreground",
             copied && "text-green-500 hover:text-green-600"
           )}

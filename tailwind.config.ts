@@ -76,6 +76,9 @@ const config = {
       screens: {
         "2xl": "1200px",
       },
+      padding: {
+        DEFAULT: "0rem",
+      },
     },
     extend: {
       screens: {
