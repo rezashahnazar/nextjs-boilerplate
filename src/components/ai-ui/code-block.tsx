@@ -2,11 +2,6 @@ import { cn } from "@/lib/utils";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { CodeProps } from "./message-item";
 
-const BASE_STYLE = {
-  color: "#e5e7eb",
-  background: "none",
-} as const;
-
 const SYNTAX_THEME = {
   'code[class*="language-"]': {
     color: "#e5e7eb",

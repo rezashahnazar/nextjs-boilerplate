@@ -1,6 +1,52 @@
 import { ImageResponse } from "next/og";
 import { ReactNode } from "react";
-import Image from "next/image";
+
+const domainAddress = new URL(
+  process.env.NEXT_PUBLIC_BASE_URL ||
+    (process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://shahnazar.me")
+).origin;
+
+const projectBasePath = process.env.NEXT_PUBLIC_BASE_PATH || "/";
+
+/**
+ * Processes a background image URL for OpenGraph image generation.
+ *
+ * This function handles two scenarios:
+ * 1. Absolute URLs (e.g., https://example.com/image.jpg):
+ *    - Returns the URL as-is after validating it's a proper URL
+ *
+ * 2. Relative paths (e.g., "images/background.jpg"):
+ *    - Combines with domain and project base path
+ *    - Cleans the path by removing empty segments and normalizing slashes
+ *    - Creates a proper absolute URL required by OpenGraph image generation
+ *
+ * @example
+ * // Absolute URL
+ * processBackgroundImageSrcURL("https://example.com/image.jpg")
+ * // Returns: "https://example.com/image.jpg"
+ *
+ * // Relative path with base path "/app"
+ * processBackgroundImageSrcURL("images/bg.jpg")
+ * // Returns: "https://domain.com/app/images/bg.jpg"
+ *
+ * @param url - The image URL or path to process
+ * @returns A properly formatted absolute URL string
+ */
+const processBackgroundImageSrcURL = (url: string) => {
+  try {
+    // Check if it's already an absolute URL
+    return new URL(url).toString();
+  } catch {
+    // Clean up path and create absolute URL
+    const cleanPath = url.split("/").filter(Boolean).join("/");
+    const basePath = projectBasePath.split("/").filter(Boolean).join("/");
+    return `${domainAddress}/${[basePath, cleanPath]
+      .filter(Boolean)
+      .join("/")}`;
+  }
+};
 
 /**
  * Renders Persian text properly for Open Graph image generation.
@@ -100,14 +146,28 @@ interface OpenGraphImageOptions {
   line1: string;
   /** The second line of Persian text below line2 */
   line2: string;
-  /** Width of the generated image in pixels (default: 1200) */
-  width?: number;
-  /** Height of the generated image in pixels (default: 630) */
-  height?: number;
-  /** Optional background image URL or component to use instead of the default gradient */
-  background?: string | React.ReactNode;
-  /** Optional alt text for the OpenGraph image (default: "Next.js RTL Boilerplate") */
-  alt?: string;
+  /**
+   * Optional background image URL or path to use instead of the default gradient.
+   *
+   * This can be either:
+   * 1. An absolute URL (e.g., "https://example.com/image.jpg")
+   * 2. A relative path from the project root (e.g., "images/background.jpg")
+   *
+   * The image will be:
+   * - Automatically processed to ensure it's an absolute URL (required by OpenGraph)
+   * - Stretched to cover the entire image area while maintaining aspect ratio
+   * - Centered within the container
+   *
+   * If not provided, a default dark gradient background will be used.
+   *
+   * @example
+   * // Absolute URL
+   * backgroundImageSrc: "https://example.com/image.jpg"
+   *
+   * // Relative path (will be combined with domain and base path)
+   * backgroundImageSrc: "images/background.jpg"
+   */
+  backgroundImageSrc?: string;
 }
 
 /**
@@ -121,6 +181,7 @@ interface OpenGraphImageOptions {
  * - Title and two lines of Persian text
  * - Proper RTL text handling
  * - IRANYekan font with multiple weights
+ * - Fixed dimensions of 1200x630 pixels (standard OpenGraph size)
  *
  * @example
  * ```tsx
@@ -140,11 +201,12 @@ export async function createOpenGraphImage({
   title,
   line1,
   line2,
-  width = 1200,
-  height = 630,
-  background,
-  alt = "وبسایت شخصی رضا شاه‌نظر",
+  backgroundImageSrc,
 }: OpenGraphImageOptions): Promise<ImageResponse> {
+  // Standard OpenGraph image dimensions
+  const width = 1200;
+  const height = 630;
+
   // Load IRANYekan font files with different weights
   const [fontData, fontDataBold, fontDataBlack] = await Promise.all([
     fetch(
@@ -160,6 +222,7 @@ export async function createOpenGraphImage({
 
   return new ImageResponse(
     (
+      // Full Container
       <div
         style={{
           height: "100%",
@@ -168,94 +231,44 @@ export async function createOpenGraphImage({
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "#000000",
-          position: "relative",
+          background: "#ffffff",
+          position: "absolute",
           overflow: "hidden",
         }}
       >
-        {/* Background */}
-        {background ? (
-          typeof background === "string" ? (
-            <Image
-              src={background}
-              alt={alt}
-              width={1200}
-              height={630}
-              priority
-              className="w-full h-auto"
-            />
-          ) : (
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                zIndex: 0,
-                display: "flex",
-              }}
-            >
-              {background}
-            </div>
-          )
-        ) : (
+        {/* Background Image or Gradient */}
+        {backgroundImageSrc ? (
+          // Custom Background Image
           <div
             style={{
               position: "absolute",
-              inset: 0,
-              zIndex: 0,
-              display: "flex",
-              flexDirection: "column",
+              bottom: "0",
+              left: "0",
+              right: "0",
+              top: "0",
+              backgroundImage: `url(${processBackgroundImageSrcURL(
+                backgroundImageSrc
+              )})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
-          >
-            {/* Default Background Gradient */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background:
-                  "radial-gradient(circle at 30% 30%, rgba(0, 112, 243, 0.15), transparent 50%)",
-              }}
-            />
-
-            {/* Background Grid */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                backgroundImage:
-                  "linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)",
-                backgroundSize: "32px 32px",
-              }}
-            />
-          </div>
+          />
+        ) : (
+          // Default Gradient Background
+          <div
+            style={{
+              position: "absolute",
+              bottom: "0",
+              left: "0",
+              right: "0",
+              top: "0",
+              background:
+                "linear-gradient(0deg, #000000, #060606 20%, #000000 55%, #060606 80% , #000000)",
+              opacity: 0.95,
+            }}
+          />
         )}
-
-        {/* Decorative Circles */}
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            width: "600px",
-            height: "600px",
-            transform: "translate(-50%, -50%)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            borderRadius: "300px",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            width: "400px",
-            height: "400px",
-            transform: "translate(-50%, -50%)",
-            border: "1px solid rgba(255, 255, 255, 0.15)",
-            borderRadius: "200px",
-          }}
-        />
-
-        {/* Main Content */}
+        {/* Inner Content */}
         <div
           style={{
             display: "flex",
@@ -263,7 +276,6 @@ export async function createOpenGraphImage({
             alignItems: "center",
             justifyContent: "center",
             gap: "48px",
-            zIndex: 1,
             padding: "0 64px",
           }}
         >
@@ -273,11 +285,13 @@ export async function createOpenGraphImage({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              background: "#0070F3",
-              padding: "28px",
+              background: "#000000",
+              color: "#ffffff",
+              padding: "10px",
               borderRadius: "28px",
-              boxShadow: "0 0 60px rgba(0, 112, 243, 0.3)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
+              boxShadow: "0 0 20px rgba(0, 0, 0, 0.3)",
+              width: "100px",
+              height: "100px",
             }}
           >
             {logo}
@@ -295,7 +309,7 @@ export async function createOpenGraphImage({
           >
             {/* Title */}
             {renderPersianTextForOpenGraphImage(title, {
-              fontSize: 80,
+              fontSize: 60,
               lineHeight: 1.1,
               fontWeight: 900,
               color: "white",
@@ -309,10 +323,6 @@ export async function createOpenGraphImage({
                 flexDirection: "column",
                 alignItems: "center",
                 gap: "16px",
-                padding: "24px 40px",
-                background: "rgba(255, 255, 255, 0.03)",
-                borderRadius: "24px",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
               }}
             >
               <div
@@ -325,6 +335,7 @@ export async function createOpenGraphImage({
                   opacity: 0.9,
                   alignItems: "center",
                   justifyContent: "center",
+                  marginRight: "-10px", // Adjust this value to move the text to the right for compensation of Misplacement of Persian Text
                 }}
               >
                 {renderPersianTextForOpenGraphImage(line1, {
@@ -350,18 +361,6 @@ export async function createOpenGraphImage({
             </div>
           </div>
         </div>
-
-        {/* Bottom Accent */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: "4px",
-            background: "#0070F3",
-          }}
-        />
       </div>
     ),
     {

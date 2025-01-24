@@ -32,12 +32,15 @@ export function MessageActions({
   }>({});
 
   useEffect(() => {
+    // Capture current timeouts at effect execution time
+    const timeouts = timeoutRef.current;
+
     return () => {
-      if (timeoutRef.current.animation) {
-        clearTimeout(timeoutRef.current.animation);
+      if (timeouts.animation) {
+        clearTimeout(timeouts.animation);
       }
-      if (timeoutRef.current.reset) {
-        clearTimeout(timeoutRef.current.reset);
+      if (timeouts.reset) {
+        clearTimeout(timeouts.reset);
       }
     };
   }, []);

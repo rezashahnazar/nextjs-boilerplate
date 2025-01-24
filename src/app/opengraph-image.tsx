@@ -1,6 +1,5 @@
 import { createOpenGraphImage } from "@/lib/opengraph";
 import { Logo } from "@/components/brand/logo";
-import { GradientBackground } from "@/components/brand/opengraph-gradient-background";
 
 export const size = {
   width: 1200,
@@ -12,12 +11,9 @@ export const alt = "Next.js RTL Boilerplate";
 
 export default async function Image() {
   return createOpenGraphImage({
-    logo: <Logo />,
+    logo: <Logo size={80} />,
     title: "Shahnazar.Me",
     line1: "وبسایت شخصی",
     line2: "رضا شاه‌نظر",
-    background: <GradientBackground />,
   });
 }
-
-
