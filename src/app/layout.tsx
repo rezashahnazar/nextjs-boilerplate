@@ -69,7 +69,6 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-          enableColorScheme
         >
           <SkipLink href="#main-content">رفتن به محتوای اصلی</SkipLink>
           <Header

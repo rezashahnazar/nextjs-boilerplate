@@ -10,73 +10,29 @@ import * as ScrollArea from "@radix-ui/react-scroll-area";
 import { useAiChat } from "./ai-chat-provider";
 import { Message } from "ai";
 
-// Types
-interface MessageListProps {
-  className?: string;
-}
-
-interface ScrollButtonProps {
-  visible: boolean;
-  onClick: () => void;
-}
-
-interface MessagesProps {
-  messages: {
-    lastMessage?: Message;
-    otherMessages: Message[];
-  };
-  isLoading: boolean;
-  error: Error | null;
-  reload: () => void;
-}
-
-interface ErrorMessageProps {
-  onRetry: () => void;
-}
-
 // Constants
 const SCROLL = {
   threshold: 200,
   delay: 100,
 } as const;
 
-// Styles
-const styles = {
-  scroll: {
-    root: (className?: string) =>
-      cn(
-        "px-4 md:px-6 flex-1 min-h-0",
-        "h-full relative container",
-        "overflow-hidden touch-none select-none",
-        className
-      ),
-    viewport: "h-full w-full",
-    bar: cn(
-      "flex touch-none select-none",
-      "h-full w-1.5 border-l border-l-transparent p-[1px]",
-      "opacity-30 hover:opacity-100 transition-opacity",
-      "absolute left-1 top-0"
-    ),
-    thumb: "relative flex-1 rounded-full bg-border",
-  },
-  messages: {
-    container: "py-4 space-y-4",
-  },
-  button: (visible: boolean) =>
-    cn(
-      "fixed bottom-40 left-1/2 -translate-x-1/2 h-8 w-8 rounded-full",
-      "bg-background shadow-md hover:bg-accent z-50",
-      "transition-opacity duration-200",
-      visible ? "opacity-100" : "opacity-0 pointer-events-none"
-    ),
-} as const;
-
 // Sub-components
-function ScrollButton({ visible, onClick }: ScrollButtonProps) {
+function ScrollButton({
+  visible,
+  onClick,
+}: {
+  visible: boolean;
+  onClick: () => void;
+}) {
   return (
     <Button
       onClick={onClick}
-      className={styles.button(visible)}
+      className={cn(
+        "fixed bottom-36 left-1/2 -translate-x-1/2 h-8 w-8 rounded-full",
+        "bg-background shadow-md hover:bg-accent z-50",
+        "transition-opacity duration-200",
+        visible ? "opacity-100" : "opacity-0 pointer-events-none"
+      )}
       size="icon"
       variant="outline"
     >
@@ -104,11 +60,21 @@ function MessageContent({
   );
 }
 
-function Messages({ messages, isLoading, error, reload }: MessagesProps) {
+function Messages({
+  messages,
+  isLoading,
+  error,
+  reload,
+}: {
+  messages: { lastMessage?: Message; otherMessages: Message[] };
+  isLoading: boolean;
+  error: Error | null;
+  reload: () => void;
+}) {
   const { lastMessage, otherMessages } = messages;
 
   return (
-    <div dir="rtl" className={styles.messages.container}>
+    <div dir="rtl" className="py-4 space-y-4">
       {otherMessages.map((message) => (
         <MessageContent key={message.id} message={message} onRetry={reload} />
       ))}
@@ -122,7 +88,6 @@ function Messages({ messages, isLoading, error, reload }: MessagesProps) {
       )}
 
       {isLoading && lastMessage?.role !== "assistant" && (
-        // The loading indicator should be placed exactly in the same position as when the assistant message gets streamed
         <LoadingIndicator className="ml-16 max-w-[calc(85%-3rem)] mr-auto" />
       )}
       {error && <ErrorMessage onRetry={reload} />}
@@ -142,26 +107,36 @@ function ScrollContainer({
   return (
     <ScrollArea.Root
       ref={scrollRef}
-      className={styles.scroll.root(className)}
+      className={cn(
+        "px-4 md:px-6 flex-1 min-h-0",
+        "h-full relative w-full",
+        "overflow-hidden touch-none select-none",
+        className
+      )}
       data-overscroll-behavior="contain"
       scrollHideDelay={SCROLL.delay}
     >
-      <ScrollArea.Viewport className={styles.scroll.viewport}>
+      <ScrollArea.Viewport className="h-full w-full container">
         {children}
       </ScrollArea.Viewport>
 
       <ScrollArea.ScrollAreaScrollbar
         orientation="vertical"
-        className={styles.scroll.bar}
+        className={cn(
+          "flex touch-none select-none",
+          "h-full w-1.5 border-l border-l-transparent p-[1px]",
+          "opacity-30 hover:opacity-100 transition-opacity",
+          "absolute left-1 top-0"
+        )}
       >
-        <ScrollArea.ScrollAreaThumb className={styles.scroll.thumb} />
+        <ScrollArea.ScrollAreaThumb className="relative flex-1 rounded-full bg-border" />
       </ScrollArea.ScrollAreaScrollbar>
       <ScrollArea.Corner />
     </ScrollArea.Root>
   );
 }
 
-function ErrorMessage({ onRetry }: ErrorMessageProps) {
+function ErrorMessage({ onRetry }: { onRetry: () => void }) {
   return (
     <div className="flex flex-col gap-2 ml-4">
       <span className="text-sm text-destructive">
@@ -175,7 +150,7 @@ function ErrorMessage({ onRetry }: ErrorMessageProps) {
 }
 
 // Main component
-export function MessageList({ className }: MessageListProps) {
+export function MessageList({ className }: { className?: string }) {
   const { messages, isLoading, error, reload, processedMessages } = useAiChat();
   const { scrollAreaRef, useScrollButton } = useScrollControl({
     SCROLL_THRESHOLD: SCROLL.threshold,
