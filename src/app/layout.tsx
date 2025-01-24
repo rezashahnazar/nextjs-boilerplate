@@ -1,65 +1,35 @@
-import type { Metadata, Viewport } from "next";
+import { type ReactNode } from "react";
 import "./globals.css";
 import { CustomThemeProvider } from "@/components/theme/theme-provider";
 import { IRANYekan } from "@/fonts/local-fonts";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/layout/header";
+import { SkipLink } from "@/components/layout/skip-link";
+import { metadata } from "@/config/metadata";
+import { viewport } from "@/config/viewport";
 
-export const viewport: Viewport = {
-  themeColor: "hsl(var(--background))",
-  colorScheme: "light dark",
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  minimumScale: 1,
-  userScalable: false,
-  height: "device-height",
-  viewportFit: "cover",
-};
+export { metadata, viewport };
 
-export const metadata: Metadata = {
-  title: "Next.js RTL Boilerplate",
-  description:
-    "A professional Next.js boilerplate with RTL support for Persian websites",
-  authors: [
-    { name: "Reza Shahnazar", url: "https://github.com/rezashahnazar" },
-  ],
-  creator: "Reza Shahnazar",
-  metadataBase: new URL("https://shahnazar.me"),
-  openGraph: {
-    type: "website",
-    locale: "fa_IR",
-    siteName: "Next.js RTL Boilerplate",
-  },
-};
+const BODY_BASE_CLASSES = "antialiased bg-background text-foreground";
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const THEME_PROVIDER_PROPS = {
+  attribute: "class",
+  defaultTheme: "system",
+  enableSystem: true,
+  disableTransitionOnChange: true,
+  enableColorScheme: true,
+} as const;
+
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
   return (
     <html lang="fa-IR" dir="rtl" suppressHydrationWarning>
-      <body
-        className={cn(
-          IRANYekan.className,
-          "antialiased bg-background text-foreground"
-        )}
-      >
-        <CustomThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-          enableColorScheme
-        >
-          {/* Skip to main content link for keyboard users */}
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:p-4 focus:bg-background focus:text-foreground"
-          >
-            رفتن به محتوای اصلی
-          </a>
+      <body className={cn(IRANYekan.className, BODY_BASE_CLASSES)}>
+        <CustomThemeProvider {...THEME_PROVIDER_PROPS}>
+          <SkipLink href="#main-content">رفتن به محتوای اصلی</SkipLink>
           <Header className="h-[48px] md:h-[64px]" />
           <main id="main-content" className="w-full mx-auto">
             {children}

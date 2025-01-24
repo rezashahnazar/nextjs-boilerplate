@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect } from "react";
 import { MessageItem } from "./message-item";
 import { LoadingIndicator } from "./loading-indicator";
 import { cn } from "@/lib/utils";
@@ -32,7 +32,6 @@ interface MessagesProps {
 interface ErrorMessageProps {
   onRetry: () => void;
 }
-
 
 // Constants
 const SCROLL = {
@@ -206,5 +205,3 @@ export function MessageList({ className }: MessageListProps) {
     </>
   );
 }
-
-

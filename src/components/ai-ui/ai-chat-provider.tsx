@@ -92,7 +92,7 @@ export function AiChatProvider({ children, ...chatOptions }: Props) {
 
   const memoizedLastMessage = useMemo(
     () => processedMessages[processedMessages.length - 1],
-    [processedMessages, isLoading ? "loading" : "idle"]
+    [processedMessages]
   );
 
   const lastMessage = isLoading
@@ -165,7 +165,11 @@ export function AiChatProvider({ children, ...chatOptions }: Props) {
   // ============================================================================
 
   useEffect(() => {
-    isLoading ? stopButtonRef.current?.focus() : focusTextarea();
+    if (isLoading) {
+      stopButtonRef.current?.focus();
+    } else {
+      focusTextarea();
+    }
   }, [isLoading, focusTextarea]);
 
   useEffect(() => {
