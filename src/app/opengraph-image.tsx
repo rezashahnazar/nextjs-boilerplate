@@ -1,7 +1,13 @@
 import { createOpenGraphImage } from "@/lib/opengraph";
 
+// Add explicit dimensions for OpenGraph image
+export const size = {
+  width: 1200,
+  height: 630
+};
+
+export const contentType = "image/png";
 export const runtime = "edge";
-export { alt, size, contentType } from "@/lib/opengraph";
 
 export default async function Image() {
   return createOpenGraphImage({
