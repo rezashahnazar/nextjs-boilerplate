@@ -71,15 +71,6 @@ const config = {
         },
       ],
     },
-    container: {
-      center: true,
-      screens: {
-        "2xl": "1200px",
-      },
-      padding: {
-        DEFAULT: "0rem",
-      },
-    },
     extend: {
       screens: {
         "4xs": "300px",

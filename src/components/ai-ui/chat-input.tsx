@@ -57,7 +57,7 @@ export function ChatInput({
         ref={formRef}
         onSubmit={handleSubmit}
         onClick={focusTextarea}
-        className="flex flex-col rounded-2xl bg-muted p-3 shadow-none cursor-text container"
+        className="flex flex-col rounded-2xl bg-muted p-3 shadow-none cursor-text max-w-4xl mx-auto"
       >
         <ChatTextarea
           value={input}

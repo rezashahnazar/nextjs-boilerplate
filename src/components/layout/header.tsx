@@ -18,7 +18,7 @@ export function Header({ title, logo, className }: HeaderProps) {
           aria-label="صفحه اصلی"
         >
           {logo}
-          <span className="text-lg font-bold tracking-tight">{title}</span>
+          <span className="text-md font-bold tracking-tight">{title}</span>
         </Link>
 
         <ThemeToggle />
