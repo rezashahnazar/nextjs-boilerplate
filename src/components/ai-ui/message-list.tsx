@@ -16,7 +16,41 @@ const SCROLL = {
   delay: 100,
 } as const;
 
-// Sub-components
+// Main component
+export function MessageList({ className }: { className?: string }) {
+  const { messages, isLoading, error, reload, processedMessages } = useAiChat();
+  const { scrollAreaRef, useScrollButton } = useScrollControl({
+    SCROLL_THRESHOLD: SCROLL.threshold,
+  });
+  const { showButton, scrollToBottom } = useScrollButton(messages, isLoading);
+
+  const handleScrollToBottom = useCallback(() => {
+    scrollToBottom("smooth");
+  }, [scrollToBottom]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      scrollToBottom("smooth");
+    }, SCROLL.delay);
+
+    return () => clearTimeout(timeoutId);
+  }, [scrollToBottom, messages.length]);
+
+  return (
+    <>
+      <ScrollContainer scrollRef={scrollAreaRef} className={className}>
+        <Messages
+          messages={processedMessages}
+          isLoading={isLoading}
+          error={error || null}
+          reload={reload}
+        />
+        <ScrollButton visible={showButton} onClick={handleScrollToBottom} />
+      </ScrollContainer>
+    </>
+  );
+}
+
 function ScrollButton({
   visible,
   onClick,
@@ -28,7 +62,7 @@ function ScrollButton({
     <Button
       onClick={onClick}
       className={cn(
-        "fixed bottom-36 left-1/2 -translate-x-1/2 h-8 w-8 rounded-full",
+        "sticky bottom-4 left-1/2 -translate-x-1/2 h-8 w-8 rounded-full",
         "bg-background shadow-md hover:bg-accent z-50",
         "transition-opacity duration-200",
         visible ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -146,41 +180,5 @@ function ErrorMessage({ onRetry }: { onRetry: () => void }) {
         تلاش مجدد
       </Button>
     </div>
-  );
-}
-
-// Main component
-export function MessageList({ className }: { className?: string }) {
-  const { messages, isLoading, error, reload, processedMessages } = useAiChat();
-  const { scrollAreaRef, useScrollButton } = useScrollControl({
-    SCROLL_THRESHOLD: SCROLL.threshold,
-  });
-  const { showButton, scrollToBottom } = useScrollButton(messages, isLoading);
-
-  const handleScrollToBottom = useCallback(() => {
-    scrollToBottom("smooth");
-  }, [scrollToBottom]);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      scrollToBottom("smooth");
-    }, SCROLL.delay);
-
-    return () => clearTimeout(timeoutId);
-  }, [scrollToBottom, messages.length]);
-
-  return (
-    <>
-      <ScrollContainer scrollRef={scrollAreaRef} className={className}>
-        <Messages
-          messages={processedMessages}
-          isLoading={isLoading}
-          error={error || null}
-          reload={reload}
-        />
-      </ScrollContainer>
-
-      <ScrollButton visible={showButton} onClick={handleScrollToBottom} />
-    </>
   );
 }
