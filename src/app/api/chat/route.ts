@@ -1,9 +1,8 @@
 import { createOpenAI } from "@ai-sdk/openai";
 import { streamText } from "ai";
-import { getSystemPrompt } from "@/services/system-prompt";
 import { nanoid } from "nanoid";
 import { smoothStream } from "ai";
-
+import { monitorStream } from "@/lib/stream-transformers";
 export const runtime = "edge";
 export const maxDuration = 30;
 
@@ -19,20 +18,10 @@ export async function POST(req: Request) {
   const stream = streamText({
     model: avalAi("gpt-4o-mini"),
     messages,
-    system: await getSystemPrompt(),
+    system: "You are a helpful assistant talking in Persian.",
     experimental_generateMessageId: nanoid,
     experimental_toolCallStreaming: true,
-    experimental_transform: [
-      smoothStream(),
-      () => {
-        return new TransformStream({
-          transform(chunk, controller) {
-            console.log(chunk);
-            controller.enqueue(chunk);
-          },
-        });
-      },
-    ],
+    experimental_transform: [smoothStream(), monitorStream()],
   });
 
   return stream.toDataStreamResponse();
