@@ -105,18 +105,23 @@ function Messages({
   error: Error | null;
   reload: () => void;
 }) {
+  const { retryMessage } = useAiChat();
   const { lastMessage, otherMessages } = messages;
 
   return (
     <div dir="rtl" className="py-2 space-y-6">
       {otherMessages.map((message) => (
-        <MessageContent key={message.id} message={message} onRetry={reload} />
+        <MessageContent
+          key={message.id}
+          message={message}
+          onRetry={() => message.id && retryMessage(message.id)}
+        />
       ))}
 
       {lastMessage && (
         <MessageContent
           message={lastMessage}
-          onRetry={reload}
+          onRetry={() => lastMessage.id && retryMessage(lastMessage.id)}
           isStreaming={isLoading && lastMessage.role === "assistant"}
         />
       )}

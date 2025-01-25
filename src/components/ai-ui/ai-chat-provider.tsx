@@ -2,6 +2,7 @@
 
 import { Message } from "ai";
 import { useChat, UseChatOptions } from "ai/react";
+import { nanoid } from "nanoid";
 import {
   createContext,
   useContext,
@@ -36,6 +37,7 @@ interface AiChatContextType {
   error: Error | undefined;
   stop: () => void;
   reload: () => void;
+  retryMessage: (messageId: string) => void;
   processedMessages: ProcessedMessages;
   formRef: React.RefObject<HTMLFormElement>;
   stopButtonRef: React.RefObject<HTMLButtonElement>;
@@ -161,6 +163,39 @@ export function AiChatProvider({ children, ...chatOptions }: Props) {
   );
 
   // ============================================================================
+  // Message-specific retry function
+  // ============================================================================
+
+  const retryMessage = useCallback(
+    (messageId: string) => {
+      const messageIndex = messages.findIndex((msg) => msg.id === messageId);
+      if (messageIndex === -1) return;
+
+      // Find the user message before this assistant message
+      let userMessageIndex = messageIndex;
+      while (
+        userMessageIndex >= 0 &&
+        messages[userMessageIndex].role !== "user"
+      ) {
+        userMessageIndex--;
+      }
+      if (userMessageIndex < 0) return;
+
+      // Keep messages up to the user message (excluding it) and remove the rest
+      chat.setMessages(messages.slice(0, userMessageIndex));
+
+      // Trigger a new completion with the user message with a new ID
+      const userMessage = messages[userMessageIndex];
+      chat.append({
+        role: "user",
+        content: userMessage.content,
+        id: nanoid(), // Generate a new unique ID
+      });
+    },
+    [messages, chat]
+  );
+
+  // ============================================================================
   // Effects
   // ============================================================================
 
@@ -196,6 +231,7 @@ export function AiChatProvider({ children, ...chatOptions }: Props) {
         error: chat.error,
         stop: chat.stop,
         reload: chat.reload,
+        retryMessage,
         processedMessages: {
           lastMessage,
           otherMessages: memoizedOtherMessages,
