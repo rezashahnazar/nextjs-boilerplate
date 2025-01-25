@@ -31,6 +31,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
+import { VaulChatSheet } from "@/components/chat/vaul-chat-sheet";
 
 export function MainContent() {
   const socialLinks = {
@@ -578,14 +579,16 @@ export function MainContent() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="relative z-10">
-                <Button
-                  variant="outline"
-                  className="group transition-all hover:shadow-md hover:bg-primary/5 relative overflow-hidden"
-                >
-                  <span className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary-5),transparent)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <span className="relative">شروع گفتگو</span>
-                  <MessageSquare className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
-                </Button>
+                <VaulChatSheet>
+                  <Button
+                    variant="outline"
+                    className="group transition-all hover:shadow-md hover:bg-primary/5 relative overflow-hidden w-full sm:w-auto"
+                  >
+                    <span className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary-5),transparent)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <span className="relative">شروع گفتگو</span>
+                    <MessageSquare className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
+                  </Button>
+                </VaulChatSheet>
               </CardContent>
             </Card>
           </div>

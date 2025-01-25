@@ -1,10 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { MessageCircle, GripVertical } from "lucide-react";
+import { GripVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -14,8 +12,7 @@ import { AiChatProvider } from "@/components/ai-ui/ai-chat-provider";
 import { MessageList } from "@/components/ai-ui/message-list";
 import { ChatInput } from "@/components/ai-ui/chat-input";
 import { usePageContent } from "@/hooks/use-page-content";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { DialogTitle } from "@radix-ui/react-dialog";
+import { VaulChatSheet } from "./vaul-chat-sheet";
 
 interface ResizableChatSidebarProps {
   children: React.ReactNode;
@@ -32,36 +29,12 @@ export function ResizableChatSidebar({
   maxSize = 40,
   className,
 }: ResizableChatSidebarProps) {
-  const [isOpen, setIsOpen] = React.useState(false);
   const mainContentRef = React.useRef<HTMLDivElement>(null);
   const pageContent = usePageContent(mainContentRef);
 
-  // Mobile view with Sheet component
+  // Mobile view with Vaul Sheet component
   const MobileView = () => (
-    <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger asChild>
-        <Button
-          variant="outline"
-          size="icon"
-          className="fixed bottom-4 right-4 h-12 w-12 rounded-full shadow-lg md:hidden"
-        >
-          <MessageCircle className="h-6 w-6" />
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="bottom" className="h-[90dvh] p-0">
-        <VisuallyHidden>
-          <DialogTitle>Chat</DialogTitle>
-        </VisuallyHidden>
-        <div className="flex h-full flex-col">
-          <div className="flex-1 overflow-hidden">
-            <AiChatProvider api="/api/chat" pageContent={pageContent}>
-              <MessageList />
-              <ChatInput />
-            </AiChatProvider>
-          </div>
-        </div>
-      </SheetContent>
-    </Sheet>
+    <VaulChatSheet pageContent={pageContent} showFloatingButton={false} />
   );
 
   // Desktop view with ResizablePanel
