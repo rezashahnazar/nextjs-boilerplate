@@ -1,27 +1,6 @@
-import dynamic from "next/dynamic";
-
-const AiChatProvider = dynamic(
-  () =>
-    import("@/components/ai-ui/ai-chat-provider").then(
-      (mod) => mod.AiChatProvider
-    ),
-  {
-    ssr: true,
-  }
-);
-const MessageList = dynamic(
-  () =>
-    import("@/components/ai-ui/message-list").then((mod) => mod.MessageList),
-  {
-    ssr: true,
-  }
-);
-const ChatInput = dynamic(
-  () => import("@/components/ai-ui/chat-input").then((mod) => mod.ChatInput),
-  {
-    ssr: true,
-  }
-);
+import { AiChatProvider } from "@/components/ai-ui/ai-chat-provider";
+import { MessageList } from "@/components/ai-ui/message-list";
+import { ChatInput } from "@/components/ai-ui/chat-input";
 
 export default function Home() {
   return (
