@@ -69,10 +69,21 @@ export function useAiChat() {
 
 interface Props extends Partial<UseChatOptions> {
   children: ReactNode;
+  pageContent?: string;
 }
 
-export function AiChatProvider({ children, ...chatOptions }: Props) {
-  const chat = useChat({ id: "chat-1", ...chatOptions });
+export function AiChatProvider({
+  children,
+  pageContent = "",
+  ...chatOptions
+}: Props) {
+  const chat = useChat({
+    id: "chat-1",
+    body: {
+      pageContent,
+    },
+    ...chatOptions,
+  });
   const { messages, isLoading } = chat;
 
   const formRef = useRef<HTMLFormElement>(null);

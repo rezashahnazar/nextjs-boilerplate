@@ -1,14 +1,12 @@
-import { AiChatProvider } from "@/components/ai-ui/ai-chat-provider";
-import { MessageList } from "@/components/ai-ui/message-list";
-import { ChatInput } from "@/components/ai-ui/chat-input";
+import { ResizableChatSidebar } from "@/components/chat/resizable-chat-sidebar";
+import { MainContent } from "@/components/home/main-content";
 
 export default function Home() {
   return (
     <div className="flex flex-col w-full h-[calc(100dvh-48px)] md:h-[calc(100dvh-64px)]">
-      <AiChatProvider api="/api/chat">
-        <MessageList />
-        <ChatInput />
-      </AiChatProvider>
+      <ResizableChatSidebar>
+        <MainContent />
+      </ResizableChatSidebar>
     </div>
   );
 }

@@ -13,12 +13,23 @@ const avalAi = createOpenAI({
 });
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+  const { messages, pageContent = "" } = await req.json();
+
+  const systemMessage = `
+You are a helpful assistant talking in Persian.
+You have access to the current page content which is:
+
+${pageContent}
+
+When asked about the page content, refer to this information to provide accurate answers.
+Always respond in Persian and maintain a friendly, professional tone.
+If asked about something not related to the page content, you can still help with general questions.
+`.trim();
 
   const stream = streamText({
     model: avalAi("gpt-4o-mini"),
     messages,
-    system: "You are a helpful assistant talking in Persian.",
+    system: systemMessage,
     experimental_generateMessageId: nanoid,
     experimental_toolCallStreaming: true,
     experimental_transform: [smoothStream(), monitorStream()],
