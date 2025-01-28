@@ -115,7 +115,7 @@ export function MainContent() {
   ];
 
   return (
-    <div className="relative h-full">
+    <div className="h-[calc(100vh-48px)] md:h-[calc(100vh-64px)] w-full overflow-y-hidden">
       {/* Sophisticated backdrop */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary-5)),transparent_80%)] opacity-[0.05] animate-subtle-pulse" />
