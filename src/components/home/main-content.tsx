@@ -29,7 +29,6 @@ import {
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 
 const Badge = dynamic(
   () => import("@/components/ui/badge").then((mod) => mod.Badge),
@@ -37,8 +36,6 @@ const Badge = dynamic(
 );
 
 export function MainContent() {
-  const { theme } = useTheme();
-
   const socialLinks = {
     email: "reza.shahnazar@gmail.com",
     github: "https://github.com/rezashahnazar",
@@ -118,7 +115,7 @@ export function MainContent() {
   ];
 
   return (
-    <div className="relative h-[calc(100vh-48px)] md:h-[calc(100vh-64px)] w-full overflow-hidden">
+    <div className="relative h-full">
       {/* Sophisticated backdrop */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary-5)),transparent_80%)] opacity-[0.05] animate-subtle-pulse" />
@@ -147,14 +144,10 @@ export function MainContent() {
                   <div className="space-y-6">
                     <div className="space-y-3 flex justify-start items-center gap-8">
                       <div className="flex flex-col items-center gap-4">
-                        <div className="relative w-20 h-20 md:w-28 md:h-28 xl:w-32 xl:h-32 shrink-0 group/image">
+                        <div className="relative w-24 h-24 md:w-28 md:h-28 xl:w-32 xl:h-32 shrink-0 group/image">
                           <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover/image:opacity-100 transition-all duration-1000" />
                           <Image
-                            src={
-                              theme === "light"
-                                ? "/profile-image-light.png"
-                                : "/profile-image.png"
-                            }
+                            src={"/profile-image.png"}
                             alt="رضا شاه‌نظر"
                             width={180}
                             height={180}
