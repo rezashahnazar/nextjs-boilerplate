@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Card,
   CardContent,
@@ -27,7 +25,12 @@ import {
   School,
   GraduationCap as Education,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import dynamic from "next/dynamic";
+
+const Badge = dynamic(
+  () => import("@/components/ui/badge").then((mod) => mod.Badge),
+  { ssr: true }
+);
 import Image from "next/image";
 import Link from "next/link";
 

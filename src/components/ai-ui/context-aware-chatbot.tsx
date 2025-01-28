@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { GripVertical, MessageCircle, X } from "lucide-react";
 import { Drawer as Sheet } from "vaul";
 
-const DEFAULT_CONFIG = {
+export const DEFAULT_CONFIG = {
   defaultSize: 25,
   minSize: 20,
   maxSize: 40,
@@ -119,7 +119,7 @@ const ContextAwareDesktopSidebarChatBot = ({
 
     {/* ChatBot Content */}
     <AiChatProvider api={chatApi} pageContent={pageContent}>
-      <MessageList className="h-full" />
+      <MessageList />
       <ChatInput />
     </AiChatProvider>
   </ResizablePanel>

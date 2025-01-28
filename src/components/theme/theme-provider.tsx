@@ -6,7 +6,7 @@ import type { ThemeProviderProps } from "next-themes";
 
 const ThemeProvider = dynamic(
   () => import("next-themes").then((mod) => mod.ThemeProvider),
-  { ssr: false }
+  { ssr: true }
 );
 
 export function CustomThemeProvider({

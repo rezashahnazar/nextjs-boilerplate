@@ -38,7 +38,10 @@ export function MessageList({ className }: { className?: string }) {
 
   return (
     <>
-      <ScrollContainer scrollRef={scrollAreaRef} className={className}>
+      <ScrollContainer
+        scrollRef={scrollAreaRef}
+        className={cn("h-full", className)}
+      >
         <Messages
           messages={processedMessages}
           isLoading={isLoading}
