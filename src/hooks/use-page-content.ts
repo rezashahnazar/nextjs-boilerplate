@@ -1,49 +1,62 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type RefObject } from "react";
 
-export function usePageContent(ref: React.RefObject<HTMLDivElement | null>) {
-  const [pageContent, setPageContent] = useState("");
+const DEBOUNCE_DELAY = 100;
 
-  const extractTextContent = useCallback(() => {
+interface MutationObserverConfig {
+  childList: boolean;
+  subtree: boolean;
+  characterData: boolean;
+}
+
+const observerConfig: MutationObserverConfig = {
+  childList: true,
+  subtree: true,
+  characterData: true,
+} as const;
+
+export function usePageContent(ref: RefObject<HTMLDivElement | null>) {
+  const [content, setContent] = useState<string>("");
+
+  const sanitizeText = (text: string | null | undefined): string => {
+    return text?.replace(/\s+/g, " ").trim() ?? "";
+  };
+
+  const extractTextContent = useCallback((): string => {
     if (!ref.current) return "";
 
-    // Clone the node to avoid modifying the actual DOM
-    const clone = ref.current.cloneNode(true) as HTMLElement;
-
-    // Remove any script and style elements
-    const scripts = clone.getElementsByTagName("script");
-    const styles = clone.getElementsByTagName("style");
-    Array.from(scripts).forEach((script) => script.remove());
-    Array.from(styles).forEach((style) => style.remove());
-
-    // Get the text content
-    const text = clone.textContent || "";
-
-    // Clean up the text
-    return text
-      .replace(/\s+/g, " ") // Replace multiple spaces with single space
-      .trim();
+    try {
+      const clone = ref.current.cloneNode(true) as HTMLElement;
+      clone.querySelectorAll("script, style").forEach((el) => el.remove());
+      return sanitizeText(clone.textContent);
+    } catch (error) {
+      console.error("[usePageContent] Text extraction failed:", error);
+      return "";
+    }
   }, [ref]);
 
   useEffect(() => {
-    setPageContent(extractTextContent());
+    let timeoutId: NodeJS.Timeout;
 
-    // Set up a mutation observer to update content when DOM changes
-    const observer = new MutationObserver(() => {
-      setPageContent(extractTextContent());
-    });
+    const updateContent = () => setContent(extractTextContent());
+    const debouncedUpdate = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(updateContent, DEBOUNCE_DELAY);
+    };
 
+    updateContent();
+
+    const observer = new MutationObserver(debouncedUpdate);
     if (ref.current) {
-      observer.observe(ref.current, {
-        childList: true,
-        subtree: true,
-        characterData: true,
-      });
+      observer.observe(ref.current, observerConfig);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeoutId);
+    };
   }, [extractTextContent, ref]);
 
-  return pageContent;
+  return content;
 }

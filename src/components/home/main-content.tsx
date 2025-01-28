@@ -12,7 +12,6 @@ import {
   Github,
   Linkedin,
   Mail,
-  MessageSquare,
   Briefcase,
   Code2,
   Globe,
@@ -31,7 +30,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
-import { VaulChatSheet } from "@/components/chat/vaul-chat-sheet";
 
 export function MainContent() {
   const socialLinks = {
@@ -44,11 +42,18 @@ export function MainContent() {
     <div className="relative h-dvh w-full overflow-hidden">
       {/* Reimagined layered background with enhanced sophistication */}
       <div className="fixed inset-0 -z-10">
+        {/* Gradient layers */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_1500px_at_50%_-100px,var(--primary-5),transparent)] opacity-20 animate-pulse-slower" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_1000px_at_100%_0%,var(--primary-10),transparent)] opacity-15 animate-pulse-slow" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_0%_50%,var(--primary-5),transparent)] opacity-20" />
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,var(--background)_100%)]" />
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.02] bg-repeat mix-blend-plus-lighter animate-subtle-drift" />
+        {/* Grid layer with increased visibility */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.025] bg-repeat mix-blend-plus-lighter animate-subtle-drift" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background opacity-30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background opacity-30" />
+        </div>
+        {/* Blur and noise layers */}
         <div className="absolute inset-0 backdrop-blur-[150px]" />
         <div className="absolute inset-0 bg-noise opacity-[0.02] mix-blend-soft-light animate-noise" />
       </div>
@@ -561,34 +566,6 @@ export function MainContent() {
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* AI Assistant Section */}
-            <Card className="border-2 border-primary/20 group transition-all hover:shadow-lg hover:border-primary/40 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute inset-0 bg-noise opacity-[0.015] mix-blend-soft-light" />
-              <CardHeader className="relative z-10">
-                <div className="flex items-center gap-2">
-                  <MessageSquare className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
-                  <CardTitle>دستیار هوشمند</CardTitle>
-                </div>
-                <CardDescription>
-                  با دستیار هوشمند من گفتگو کنید و درباره تجربیات، مهارت‌ها و
-                  پروژه‌های من بیشتر بدانید
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <VaulChatSheet>
-                  <Button
-                    variant="outline"
-                    className="group transition-all hover:shadow-md hover:bg-primary/5 relative overflow-hidden w-full sm:w-auto"
-                  >
-                    <span className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary-5),transparent)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <span className="relative">شروع گفتگو</span>
-                    <MessageSquare className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
-                  </Button>
-                </VaulChatSheet>
               </CardContent>
             </Card>
           </div>
