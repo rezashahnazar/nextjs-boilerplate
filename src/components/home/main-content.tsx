@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -13,7 +15,6 @@ import {
   Briefcase,
   Code2,
   Globe,
-  Award,
   BookOpen,
   ChevronLeft,
   Users,
@@ -26,104 +27,150 @@ import {
   GraduationCap as Education,
 } from "lucide-react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
+import Link from "next/link";
+import { useTheme } from "next-themes";
 
 const Badge = dynamic(
   () => import("@/components/ui/badge").then((mod) => mod.Badge),
   { ssr: true }
 );
-import Image from "next/image";
-import Link from "next/link";
 
 export function MainContent() {
+  const { theme } = useTheme();
+
   const socialLinks = {
     email: "reza.shahnazar@gmail.com",
     github: "https://github.com/rezashahnazar",
     linkedin: "https://www.linkedin.com/in/reza-shahnazar/",
   };
 
+  const experiences = [
+    {
+      title: "مدیر Product Marketing",
+      company: "دیجی‌کالا",
+      period: "خرداد ۱۴۰۳ - اکنون",
+      location: "تهران، ایران",
+      description: "مدیریت تجربه مشتری و همسوسازی بخش‌های مارکتینگ و محصول",
+      skills: ["Product Management", "Marketing", "Technical Leadership"],
+    },
+    {
+      title: "سرپرست محصول مارکتینگ",
+      company: "دیجی‌کالا",
+      period: "مهر ۱۴۰۲ - خرداد ۱۴۰۳",
+      location: "تهران، ایران",
+      description: "نظارت بر تیم محصول مارکتینگ و توسعه استراتژی‌های محصول",
+      skills: ["Product Strategy", "Team Leadership", "Marketing"],
+    },
+    {
+      title: "سرپرست تیم داده",
+      company: "دیجی‌کالا",
+      period: "دی ۱۴۰۱ - مهر ۱۴۰۲",
+      location: "تهران، ایران",
+      description: "مدیریت تیم داده و توسعه راهکارهای تحلیلی",
+      skills: ["Data Science", "Analytics", "Team Management"],
+    },
+    {
+      title: "رزیدنت قلب و عروق",
+      company: "مرکز قلب تهران",
+      period: "شهریور ۱۳۹۷ - دی ۱۴۰۱",
+      location: "تهران، ایران",
+      description: "تخصص در تشخیص و درمان بیماری‌های قلبی و عروقی",
+      skills: ["Cardiology", "Medical Research", "Patient Care"],
+    },
+    {
+      title: "مدیر فنی و هم‌بنیانگذار",
+      company: "زی‌دکتر",
+      period: "شهریور ۱۴۰۰ - اردیبهشت ۱۴۰۱",
+      location: "تهران، ایران",
+      description: "توسعه پلتفرم پزشکی آنلاین و مدیریت تیم فنی",
+      skills: ["Technical Leadership", "Healthcare Tech", "Startup"],
+    },
+    {
+      title: "مدیر و موسس",
+      company: "sClass College",
+      period: "اردیبهشت ۱۳۹۸ - اردیبهشت ۱۴۰۰",
+      location: "تهران، ایران",
+      description: "توسعه و مدیریت پلتفرم آموزش آنلاین المپیاد زیست‌شناسی",
+      skills: ["Education Tech", "Business Development", "Online Learning"],
+    },
+  ];
+
+  const publications = [
+    {
+      title:
+        "Association between Nontraditional Risk Factors and Calculated 10-Year Risk of Atherosclerotic Cardiovascular Disease in a Large General Population",
+      type: "مقاله علمی",
+      publisher: "مطالعه کوهورت پارس",
+    },
+    {
+      title:
+        "Cranial nerve palsy prevalence and associated factors in patients with malignant otitis externa",
+      type: "مقاله علمی",
+      publisher: "Journal of Medical Research",
+    },
+    {
+      title:
+        "MaxSplZer: A Tool To Predict Effects Of LDLR Splice Variants Based On The Maximum Entropy Model",
+      type: "مقاله علمی",
+      publisher: "Scientific Journal",
+    },
+  ];
+
   return (
-    <div className="relative h-dvh w-full overflow-hidden">
-      {/* Reimagined layered background with enhanced sophistication */}
+    <div className="relative h-[calc(100vh-48px)] md:h-[calc(100vh-64px)] w-full overflow-hidden">
+      {/* Sophisticated backdrop */}
       <div className="fixed inset-0 -z-10">
-        {/* Gradient layers */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_1500px_at_50%_-100px,var(--primary-5),transparent)] opacity-20 animate-pulse-slower" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_1000px_at_100%_0%,var(--primary-10),transparent)] opacity-15 animate-pulse-slow" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_0%_50%,var(--primary-5),transparent)] opacity-20" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,var(--background)_100%)]" />
-        {/* Grid layer with increased visibility */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary-5)),transparent_80%)] opacity-[0.05] animate-subtle-pulse" />
+        <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,hsl(var(--background)),hsl(var(--primary-5))_15%,hsl(var(--background))_30%)] opacity-[0.02] mix-blend-overlay" />
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.025] bg-repeat mix-blend-plus-lighter animate-subtle-drift" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background opacity-30" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background opacity-30" />
+          <div
+            className="absolute inset-0 bg-[url('/grid.svg')] 
+            [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)] 
+            opacity-[0.04] bg-repeat mix-blend-plus-lighter"
+          />
         </div>
-        {/* Blur and noise layers */}
         <div className="absolute inset-0 backdrop-blur-[150px]" />
-        <div className="absolute inset-0 bg-noise opacity-[0.02] mix-blend-soft-light animate-noise" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/95" />
       </div>
 
       <main className="h-full overflow-auto scrollbar-none scroll-smooth">
-        <div className="w-full p-6 md:p-8 lg:p-12">
-          <div className="mx-auto max-w-7xl space-y-24 pb-24">
+        <div className="w-full p-4 sm:p-6 lg:p-8 xl:p-12">
+          <div className="mx-auto max-w-5xl space-y-10 md:space-y-12 pb-12">
             {/* Elevated Hero Section */}
-            <Card className="border-none bg-gradient-to-br from-background/90 to-background/70 backdrop-blur-xl overflow-hidden relative group/card hover:shadow-2xl hover:shadow-primary/5 transition-all duration-1000">
-              {/* Enhanced layered hover effects with sophisticated timing */}
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--primary-5),transparent)] opacity-0 group-hover/card:opacity-100 transition-all duration-1500 ease-out" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_-150px,var(--primary-5),transparent)] opacity-20 transition-opacity duration-1000" />
-              <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:32px_32px] mix-blend-plus-lighter animate-subtle-drift" />
-              <div className="absolute inset-0 bg-noise opacity-[0.02] mix-blend-soft-light animate-noise" />
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/5 to-background/20 opacity-0 group-hover/card:opacity-100 transition-opacity duration-1000" />
+            <Card className="group/card relative overflow-hidden border-none !bg-transparent shadow-none hover:shadow-none">
+              <div className="relative flex flex-col lg:flex-row items-center gap-6 lg:gap-12 p-6 sm:p-8 lg:p-10">
+                {/* Refined profile image */}
 
-              <div className="relative flex flex-col md:flex-row items-start md:items-center gap-12 p-8 md:p-12 lg:p-16">
-                {/* Elevated profile image presentation */}
-                <div className="relative w-56 h-56 md:w-72 md:h-72 shrink-0 group/image perspective-1000">
-                  {/* Sophisticated 3D transformation on hover */}
-                  <div className="absolute inset-0 rounded-2xl border border-primary/10 scale-[1.15] transition-all duration-1000 group-hover/image:scale-[1.05] opacity-0 group-hover/image:opacity-100 group-hover/image:rotate-3 ease-out" />
-                  <div className="absolute inset-0 rounded-2xl border border-primary/10 scale-[1.1] transition-all duration-1000 group-hover/image:scale-[1.025] opacity-0 group-hover/image:opacity-70 group-hover/image:rotate-2 ease-out" />
-                  <div className="absolute inset-0 rounded-2xl border border-primary/5 scale-[1.05] transition-all duration-1000 group-hover/image:scale-[1.01] opacity-0 group-hover/image:opacity-50 group-hover/image:rotate-1 ease-out" />
-
-                  {/* Enhanced image container with sophisticated glass effect */}
-                  <div className="relative w-full h-full overflow-hidden rounded-2xl border-2 border-primary/10 shadow-2xl transition-all duration-1000 group-hover/image:shadow-primary/20 group-hover/image:border-primary/20 bg-background/50 backdrop-blur-sm transform-gpu group-hover/image:translate-z-12">
-                    <Image
-                      src="/profile-image.png"
-                      alt="رضا شاه‌نظر"
-                      width={400}
-                      height={400}
-                      className="object-cover w-full h-full transition-all duration-1500 group-hover/image:scale-[1.15] scale-[1.05] group-hover/image:rotate-2"
-                      priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-background/5 to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-1000" />
-                    <div className="absolute inset-0 bg-noise opacity-[0.02] mix-blend-soft-light animate-noise" />
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover/image:opacity-30 transition-opacity duration-1000" />
-                  </div>
-                </div>
-
-                {/* Enhanced content section with sophisticated typography and animations */}
-                <div className="flex-1 space-y-12">
-                  <div className="space-y-8">
-                    <div className="space-y-4">
-                      <div className="flex flex-wrap gap-3">
-                        {["Product Engineer", "Cardiologist"].map(
-                          (badge, i) => (
-                            <Badge
-                              key={badge}
-                              variant="outline"
-                              className="text-sm animate-in fade-in slide-in-from-top-4 duration-1000 bg-background/50 backdrop-blur-sm border-primary/20 px-4 py-2 relative overflow-hidden group/badge hover:shadow-lg hover:shadow-primary/5 transition-all hover:scale-105"
-                              style={{ animationDelay: `${i * 150}ms` }}
-                            >
-                              <span className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary-5),transparent)] opacity-0 group-hover/badge:opacity-100 transition-opacity duration-700" />
-                              <span className="relative">{badge}</span>
-                            </Badge>
-                          )
-                        )}
+                {/* Refined content section */}
+                <div className="flex-1 space-y-8">
+                  <div className="space-y-6">
+                    <div className="space-y-3 flex justify-start items-center gap-8">
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="relative w-20 h-20 md:w-28 md:h-28 xl:w-32 xl:h-32 shrink-0 group/image">
+                          <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover/image:opacity-100 transition-all duration-1000" />
+                          <Image
+                            src={
+                              theme === "light"
+                                ? "/profile-image-light.png"
+                                : "/profile-image.png"
+                            }
+                            alt="رضا شاه‌نظر"
+                            width={180}
+                            height={180}
+                            className="relative rounded-xl object-cover shadow-md transition-all duration-1000 group-hover/image:shadow-primary/5 group-hover/image:scale-[1.01]"
+                            priority
+                          />
+                        </div>
                       </div>
-                      <div className="space-y-2">
-                        <CardTitle className="text-5xl md:text-7xl font-bold bg-gradient-to-br from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent animate-in fade-in slide-in-from-left-8 duration-1000 tracking-tight relative group/title hover:scale-[1.01] transition-transform">
+                      <div className="space-y-3">
+                        <CardTitle className="text-4xl md:text-4xl font-medium text-foreground/90">
                           <span className="relative inline-block group-hover/title:translate-x-0.5 transition-transform duration-700">
                             رضا شاه‌نظر
                             <span className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0 transform scale-x-0 group-hover/title:scale-x-100 transition-transform duration-1500 ease-out" />
                           </span>
                         </CardTitle>
-                        <CardDescription className="text-xl md:text-2xl font-medium animate-in fade-in slide-in-from-left-12 duration-1000 text-muted-foreground/80">
+                        <CardDescription className="text-md md:text-lg font-medium animate-in fade-in slide-in-from-left-12 duration-1000 text-muted-foreground/80">
                           مدیر Product Marketing دیجی‌کالا | مهندس نرم‌افزار |
                           متخصص قلب و عروق
                         </CardDescription>
@@ -131,7 +178,7 @@ export function MainContent() {
                     </div>
 
                     {/* Enhanced skill badges with sophisticated hover effects */}
-                    <div className="flex flex-wrap gap-2 animate-in fade-in slide-in-from-left-16 duration-1000">
+                    <div className="flex flex-wrap gap-3 animate-in fade-in slide-in-from-left-16 duration-1000">
                       {[
                         { text: "Product Marketing", icon: Globe },
                         { text: "Software Engineering", icon: Code2 },
@@ -143,16 +190,14 @@ export function MainContent() {
                         <Badge
                           key={item.text}
                           variant="secondary"
-                          className="text-sm transition-all hover:bg-primary/20 px-4 py-1.5 relative overflow-hidden group/badge flex items-center gap-1.5 hover:shadow-lg hover:shadow-primary/5 hover:scale-105"
+                          className="text-xs transition-all hover:bg-primary/10 px-3 py-1 relative overflow-hidden group/badge flex items-center gap-1 hover:shadow-sm hover:shadow-primary/5 hover:scale-[1.02]"
                           style={{
-                            animationDelay: `${i * 150}ms`,
-                            transform: `translateY(${Math.sin(i * 0.5) * 2}px)`,
+                            animationDelay: `${i * 100}ms`,
+                            transform: `translateY(${Math.sin(i * 0.3) * 1}px)`,
                           }}
                         >
-                          <span className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary-5),transparent)] opacity-0 group-hover/badge:opacity-100 transition-opacity duration-700" />
-                          <span className="absolute inset-0 bg-primary/5 opacity-0 group-hover/badge:opacity-100 transition-all duration-700 ease-out" />
-                          <item.icon className="h-3.5 w-3.5 text-primary/70 group-hover/badge:scale-110 transition-transform duration-500" />
-                          <span className="relative bg-gradient-to-r from-foreground to-foreground/90 bg-clip-text text-transparent transition-colors group-hover:from-primary group-hover:to-primary/90">
+                          <item.icon className="h-3 w-3 text-primary/50 group-hover/badge:scale-105 transition-transform duration-500" />
+                          <span className="relative bg-gradient-to-r from-foreground/90 to-foreground/80 bg-clip-text text-transparent transition-colors group-hover:from-primary/90 group-hover:to-primary/80">
                             {item.text}
                           </span>
                         </Badge>
@@ -161,7 +206,7 @@ export function MainContent() {
                   </div>
 
                   <div className="space-y-8">
-                    <p className="text-lg md:text-xl text-muted-foreground/90 leading-relaxed max-w-3xl animate-in fade-in slide-in-from-left-20 duration-1000">
+                    <p className="text-base md:text-md text-muted-foreground/90 leading-relaxed animate-in fade-in slide-in-from-left-20 duration-1000">
                       با بیش از ۱۵ سال تجربه کاری جامع، شامل تمرکز ویژه بر تحلیل
                       کسب‌وکار و توسعه محصول. در حال حاضر، نقش من در دیجی‌کالا
                       شامل مدیریت تجربه مشتری با پل زدن میان نیازهای کسب‌وکار و
@@ -294,116 +339,53 @@ export function MainContent() {
                 </div>
               </CardHeader>
               <CardContent className="relative z-10">
-                <div className="space-y-12">
-                  {[
-                    {
-                      title: "مدیر Product Marketing",
-                      company: "دیجی‌کالا",
-                      period: "خرداد ۱۴۰۳ - اکنون",
-                      location: "تهران، ایران",
-                      description:
-                        "مدیریت تجربه مشتری و همسوسازی بخش‌های مارکتینگ و محصول",
-                      skills: [
-                        "Product Management",
-                        "Marketing",
-                        "Technical Leadership",
-                      ],
-                    },
-                    {
-                      title: "سرپرست محصول مارکتینگ",
-                      company: "دیجی‌کالا",
-                      period: "مهر ۱۴۰۲ - خرداد ۱۴۰۳",
-                      location: "تهران، ایران",
-                      description:
-                        "نظارت بر تیم محصول مارکتینگ و توسعه استراتژی‌های محصول",
-                      skills: [
-                        "Product Strategy",
-                        "Team Leadership",
-                        "Marketing",
-                      ],
-                    },
-                    {
-                      title: "سرپرست تیم داده",
-                      company: "دیجی‌کالا",
-                      period: "دی ۱۴۰۱ - مهر ۱۴۰۲",
-                      location: "تهران، ایران",
-                      description: "مدیریت تیم داده و توسعه راهکارهای تحلیلی",
-                      skills: ["Data Science", "Analytics", "Team Management"],
-                    },
-                    {
-                      title: "رزیدنت قلب و عروق",
-                      company: "مرکز قلب تهران",
-                      period: "شهریور ۱۳۹۷ - دی ۱۴۰۱",
-                      location: "تهران، ایران",
-                      description:
-                        "تخصص در تشخیص و درمان بیماری‌های قلبی و عروقی",
-                      skills: [
-                        "Cardiology",
-                        "Medical Research",
-                        "Patient Care",
-                      ],
-                    },
-                    {
-                      title: "مدیر فنی و هم‌بنیانگذار",
-                      company: "زی‌دکتر",
-                      period: "شهریور ۱۴۰۰ - اردیبهشت ۱۴۰۱",
-                      location: "تهران، ایران",
-                      description: "توسعه پلتفرم پزشکی آنلاین و مدیریت تیم فنی",
-                      skills: [
-                        "Technical Leadership",
-                        "Healthcare Tech",
-                        "Startup",
-                      ],
-                    },
-                    {
-                      title: "مدیر و موسس",
-                      company: "sClass College",
-                      period: "اردیبهشت ۱۳۹۸ - اردیبهشت ۱۴۰۰",
-                      location: "تهران، ایران",
-                      description:
-                        "توسعه و مدیریت پلتفرم آموزش آنلاین المپیاد زیست‌شناسی",
-                      skills: [
-                        "Education Tech",
-                        "Business Development",
-                        "Online Learning",
-                      ],
-                    },
-                  ].map((experience, index) => (
-                    <div
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {experiences.map((experience, index) => (
+                    <Card
                       key={index}
-                      className="border-r-2 border-primary/20 pr-6 relative group/item transition-all hover:border-primary"
+                      className="group relative overflow-hidden hover:shadow-lg transition-all duration-500"
                     >
-                      <div className="absolute right-[-9px] top-0 h-4 w-4 rounded-full bg-primary/20 group-hover/item:bg-primary transition-colors" />
-                      <div className="space-y-4">
-                        <div className="space-y-2">
-                          <h3 className="text-lg font-semibold flex items-center gap-2">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                      <CardHeader className="relative z-10">
+                        <div className="flex items-center gap-3">
+                          <Briefcase className="h-5 w-5 text-primary/70" />
+                          <CardTitle className="text-lg font-medium">
                             {experience.title}
-                            <span className="text-sm font-normal text-muted-foreground">
-                              · {experience.company}
-                            </span>
-                          </h3>
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <span>{experience.period}</span>
-                            <span>·</span>
-                            <span>{experience.location}</span>
+                          </CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="relative z-10">
+                        <div className="space-y-4">
+                          <div className="space-y-2">
+                            <h3 className="text-lg font-semibold flex items-center gap-2">
+                              {experience.title}
+                              <span className="text-sm font-normal text-muted-foreground">
+                                · {experience.company}
+                              </span>
+                            </h3>
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <span>{experience.period}</span>
+                              <span>·</span>
+                              <span>{experience.location}</span>
+                            </div>
+                          </div>
+                          <p className="text-muted-foreground/90">
+                            {experience.description}
+                          </p>
+                          <div className="flex flex-wrap gap-2">
+                            {experience.skills.map((skill) => (
+                              <Badge
+                                key={skill}
+                                variant="outline"
+                                className="transition-colors hover:bg-primary/5"
+                              >
+                                {skill}
+                              </Badge>
+                            ))}
                           </div>
                         </div>
-                        <p className="text-muted-foreground/90">
-                          {experience.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {experience.skills.map((skill) => (
-                            <Badge
-                              key={skill}
-                              variant="outline"
-                              className="transition-colors hover:bg-primary/5"
-                            >
-                              {skill}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+                      </CardContent>
+                    </Card>
                   ))}
                 </div>
               </CardContent>
@@ -421,26 +403,7 @@ export function MainContent() {
                   </div>
                 </CardHeader>
                 <CardContent className="relative z-10 space-y-6">
-                  {[
-                    {
-                      title:
-                        "Association between Nontraditional Risk Factors and Calculated 10-Year Risk of Atherosclerotic Cardiovascular Disease in a Large General Population",
-                      type: "مقاله علمی",
-                      publisher: "مطالعه کوهورت پارس",
-                    },
-                    {
-                      title:
-                        "Cranial nerve palsy prevalence and associated factors in patients with malignant otitis externa",
-                      type: "مقاله علمی",
-                      publisher: "Journal of Medical Research",
-                    },
-                    {
-                      title:
-                        "MaxSplZer: A Tool To Predict Effects Of LDLR Splice Variants Based On The Maximum Entropy Model",
-                      type: "مقاله علمی",
-                      publisher: "Scientific Journal",
-                    },
-                  ].map((publication, index) => (
+                  {publications.map((publication, index) => (
                     <div
                       key={index}
                       className="border-r-2 border-primary/20 pr-4 relative group/item transition-all hover:border-primary"
@@ -455,56 +418,6 @@ export function MainContent() {
                           <span>·</span>
                           <span>{publication.publisher}</span>
                         </div>
-                      </div>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-
-              <Card className="group transition-all hover:shadow-lg relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="absolute inset-0 bg-noise opacity-[0.015] mix-blend-soft-light" />
-                <CardHeader className="relative z-10">
-                  <div className="flex items-center gap-2">
-                    <Award className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
-                    <CardTitle>کتب و دستاوردها</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent className="relative z-10 space-y-6">
-                  {[
-                    {
-                      title: "کتاب ژنتیک کلاسیک",
-                      publisher: "انتشارات فاطمی",
-                      description:
-                        "منتشر شده در ۵ نسخه با بیش از ۵۰۰۰ نسخه فروش",
-                    },
-                    {
-                      title: "مبانی آمار زیستی - المپیاد زیست‌شناسی",
-                      publisher: "انتشارات دانش‌پژوهان جوان",
-                      description: "کتاب درسی المپیاد زیست‌شناسی",
-                    },
-                    {
-                      title: "مدال طلای المپیاد ملی زیست‌شناسی",
-                      description: "کسب مدال طلا در المپیاد ملی زیست‌شناسی",
-                    },
-                  ].map((achievement, index) => (
-                    <div
-                      key={index}
-                      className="border-r-2 border-primary/20 pr-4 relative group/item transition-all hover:border-primary"
-                    >
-                      <div className="absolute right-[-9px] top-0 h-4 w-4 rounded-full bg-primary/20 group-hover/item:bg-primary transition-colors" />
-                      <div className="space-y-2">
-                        <h3 className="text-base font-medium">
-                          {achievement.title}
-                        </h3>
-                        {achievement.publisher && (
-                          <div className="text-sm text-muted-foreground">
-                            {achievement.publisher}
-                          </div>
-                        )}
-                        <p className="text-sm text-muted-foreground/90">
-                          {achievement.description}
-                        </p>
                       </div>
                     </div>
                   ))}
