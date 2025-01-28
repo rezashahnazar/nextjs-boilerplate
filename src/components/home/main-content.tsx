@@ -55,11 +55,11 @@ export function MainContent() {
       skills: ["Product Management", "Marketing", "Technical Leadership"],
     },
     {
-      title: "سرپرست محصول مارکتینگ",
+      title: "سرپرست Product Marketing",
       company: "دیجی‌کالا",
       period: "مهر ۱۴۰۲ - خرداد ۱۴۰۳",
       location: "تهران، ایران",
-      description: "نظارت بر تیم محصول مارکتینگ و توسعه استراتژی‌های محصول",
+      description: "نظارت بر تیم Product Marketing و توسعه استراتژی‌های محصول",
       skills: ["Product Strategy", "Team Leadership", "Marketing"],
     },
     {
