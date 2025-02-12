@@ -9,33 +9,69 @@ import type { Viewport } from "next";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "وبسایت شخصی رضا شاه‌نظر",
-  description: "وبسایت شخصی رضا شاه‌نظر.",
+  title: "رضا شاه‌نظر | Reza Shahnazar",
+  description:
+    "وبسایت شخصی رضا شاه‌نظر - متخصص قلب و عروق، مدیر Product Marketing دیجی‌کالا و مهندس نرم‌افزار | Personal website of Reza Shahnazar - Cardiologist, Product Marketing Manager at Digikala, and Software Engineer",
   authors: [
     { name: "Reza Shahnazar", url: "https://github.com/rezashahnazar" },
+    { name: "رضا شاه‌نظر", url: "https://github.com/rezashahnazar" },
   ],
   creator: "Reza Shahnazar",
-  metadataBase: new URL("https://shahnazar.me"),
+  keywords: [
+    "رضا شاه‌نظر",
+    "Reza Shahnazar",
+    "دیجی‌کالا",
+    "Digikala",
+    "Product Marketing",
+    "پزشک",
+    "متخصص قلب",
+    "Cardiologist",
+    "Software Engineer",
+    "مهندس نرم‌افزار",
+    "پروداکت مارکتینگ",
+  ],
+  metadataBase: new URL("https://www.shahnazar.me"),
   openGraph: {
-    title: "وبسایت شخصی رضا شاه‌نظر",
-    description: "وبسایت شخصی رضا شاه‌نظر.",
+    title: "رضا شاه‌نظر | Reza Shahnazar",
+    description:
+      "وبسایت شخصی رضا شاه‌نظر - متخصص قلب و عروق، مدیر Product Marketing دیجی‌کالا و مهندس نرم‌افزار | Personal website of Reza Shahnazar - Cardiologist, Product Marketing Manager at Digikala, and Software Engineer",
     type: "website",
-    url: "https://shahnazar.me",
-    siteName: "وبسایت شخصی رضا شاه‌نظر",
+    url: "https://www.shahnazar.me",
+    siteName: "رضا شاه‌نظر | Reza Shahnazar",
+    locale: "fa_IR",
+    alternateLocale: "en_US",
     images: [
       {
-        url: "https://shahnazar.me/opengraph-image",
+        url: "https://www.shahnazar.me/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "وبسایت شخصی رضا شاه‌نظر",
+        alt: "رضا شاه‌نظر | Reza Shahnazar",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "وبسایت شخصی رضا شاه‌نظر",
-    description: "وبسایت شخصی رضا شاه‌نظر.",
-    images: ["https://shahnazar.me/opengraph-image"],
+    title: "رضا شاه‌نظر | Reza Shahnazar",
+    description:
+      "وبسایت شخصی رضا شاه‌نظر - متخصص قلب و عروق، مدیر Product Marketing دیجی‌کالا و مهندس نرم‌افزار | Personal website of Reza Shahnazar",
+    images: ["https://www.shahnazar.me/opengraph-image"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
+  alternates: {
+    canonical: "https://www.shahnazar.me",
   },
 };
 
